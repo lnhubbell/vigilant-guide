@@ -27,7 +27,7 @@ server.listen(port, hostname, () => {
 var search = function (search_term, res) {
 
     const url_part1 = "http://api.nal.usda.gov/ndb/search/?format=json&q=";
-    const url_part2 = "&sort=r&max=25&offset=0&api_key=";
+    const url_part2 = "&sort=r&max=25&offset=0&ds=Standard Reference&api_key=";
     const url = url_part1 + search_term + url_part2 + API_KEY;
     var buffer = "",
         data,
