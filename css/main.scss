@@ -1,0 +1,17 @@
+// // Fonts:
+$font-large: 24px;
+
+
+
+.column {
+	// padding: 4px;
+
+	&-title {
+		font-size: $font-large;
+		font-weight: bold;
+		text-transform: capitalize;
+	}
+}
+
+// .test {
+// 	color: pink;}
