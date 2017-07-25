@@ -1,0 +1,40 @@
+{
+  "name": "nutrition-app",
+  "version": "0.1.0",
+  "description": "An app tht recomends foods based on daily nutrition deficencies.",
+  "author": "Illig Hubbell <fake@ihconsulting.org>",
+  "contributors": [
+    {
+      "name": "Nathan Hubbell",
+      "email": "foo.bar@example.com"
+    },
+    {
+      "name": "Laura Illig",
+      "email": "foo.bar@example.com"
+    }
+  ],
+  "scripts": {
+    "start": "node index.js",
+    "predeploy": "echo im about to deploy",
+    "postdeploy": "echo ive deployed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lnhubbell/vigilant-guide"
+  },
+  "keywords": [
+    "food",
+    "nutrition",
+    "health"
+  ],
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "multer": "^1.3.0"
+  },
+  "preferGlobal": true,
+  "private": true,
+  "analyze": true,
+  "license": "GNU"
+}
