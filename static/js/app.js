@@ -1,31 +1,9 @@
-
-// var app = new Vue({
-//   el: '#app',
-//   data: {
-//     message: 'Hello Vue!'
-//   }
-// })
-
-// var app2 = new Vue({
-//   el: '#app-2',
-//   data: {
-//     message: 'You loaded this page on ' + new Date()
-//   }
-// })
-
-            // fetchV1IntermediaryUsers: function()
-            // {
-            //     this.$http.get('/api/v1_users', function(v1users)
-            //     {
-            //         this.$set('v1_user',v1users);
-            //     });
-            // },
-
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
+        foods: [],
         meals: [
-            { 
+            {
                 name: 'breakfast',
                 foods: [
                     {name:'apple',serving:1},
@@ -33,7 +11,7 @@ var nutritionApp = new Vue({
                     {name:'coffee',serving:1}
                 ],
             },
-            { 
+            {
                 name: 'lunch',
                 foods: [
                     {name:'apple',serving:1},
@@ -41,7 +19,7 @@ var nutritionApp = new Vue({
                     {name:'coffee',serving:1}
                 ],
             },
-            { 
+            {
                 name: 'dinner',
                 foods: [
                     {name:'apple',serving:1},
@@ -49,7 +27,7 @@ var nutritionApp = new Vue({
                     {name:'coffee',serving:1}
                 ],
             },
-            { 
+            {
                 name: 'snacks',
                 foods: [
                     {name:'apple',serving:1},
@@ -73,22 +51,27 @@ var nutritionApp = new Vue({
             console.log(this.newfood)
         },
         fetchFoodData: function(fetch) {
-            this.$http.get('/api/xxxx/' + fetch )
-                .success(function(response){
-                   this.foodSources = response;
-                })
-                .error(function(){
 
-                });
-        },        
+
+            this.$http.get('http://127.0.0.1:3000/search?search_term=' + fetch).then(response => {
+
+                var someData = response.body;
+                console.log(someData.list.item);
+                nutritionApp.foods = someData.list.item;
+
+            }, response => {
+            });
+        },
     },
 
 });
 
+
+
 // var searchFoods = new Vue({
 //     el: '#searchFoods',
 //     data: {
-//     },    
+//     },
 // });
 
 
