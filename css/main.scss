@@ -1,16 +1,26 @@
 // // Fonts:
 $font-large: 24px;
+$font-med: 18px;
 
 
 
 .column {
 	// padding: 4px;
 
-	&-title {
+	&-contents {
+		padding: 4px 0 4px 16px;
+	}
+
+	&-titlelg {
 		font-size: $font-large;
 		font-weight: bold;
 		text-transform: capitalize;
 	}
+	&-titlemd {
+		font-size: $font-med;
+		padding: 8px;
+		text-transform: capitalize;
+	}	
 }
 
 // .test {

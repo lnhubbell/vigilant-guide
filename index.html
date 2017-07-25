@@ -38,11 +38,11 @@
 	<!-- Current Day Column -->
 	<div class="mdl-cell mdl-cell--6-col column" 
 	id="currentDay">
-		<div class="column-title">Today's Log:</div>
+		<div class="column-titlelg">Today's Log:</div>
 
 		<div v-for="meal in meals">
-			<div class="mdl-cell--1-offset">{{meal.name}}</div>
-			<div class="mdl-cell--2-offset" 
+			<div class="mdl-cell--1-offset column-titlemd">{{meal.name}}</div>
+			<div class="mdl-cell--1-offset column-contents" 
 			v-for="food in meal.foods">
 				{{food.name}}
 			</div>
@@ -50,11 +50,19 @@
 	</div>
 
 	<div class="mdl-cell mdl-cell--6-col">
-		<!-- <form v-on:submit.stop="addNewFood"> -->
-		<form>
+		<div>
 			<div>Search Foods:</div>
-			<input v-model="newfood" placeholder="Add Food">
-		</form>
+			<!-- <form v-on:submit.stop="addNewFood"> -->
+			<!-- <form> -->
+			<div class="mdl-grid">
+				<input class="mdl-cell mdl-cell--6-col column"
+				v-model="newfood" placeholder="Add Food">
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column">
+	  			<i class="material-icons">search</i>
+				</button>
+	  		</div>
+			<!-- </form> -->
+		</div>
 	</div>
 
 </body>

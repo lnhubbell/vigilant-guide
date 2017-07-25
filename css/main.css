@@ -1,4 +1,12 @@
-.column-title {
+.column-contents {
+  padding: 4px 0 4px 16px; }
+
+.column-titlelg {
   font-size: 24px;
   font-weight: bold;
+  text-transform: capitalize; }
+
+.column-titlemd {
+  font-size: 18px;
+  padding: 8px;
   text-transform: capitalize; }
