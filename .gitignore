@@ -58,4 +58,4 @@ typings/
 .env
 
 #Static Files
-public/
+static/images
