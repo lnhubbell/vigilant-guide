@@ -34,10 +34,9 @@
 	</div>
 </body> -->
 
-<body class="mdl-grid">
-	<!-- Current Day Column -->
-	<div class="mdl-cell mdl-cell--6-col column" 
-	id="currentDay">
+<body class="mdl-grid" id="nutritionApp">
+	<!-- currentDay Column -->
+	<div class="mdl-cell mdl-cell--6-col column">
 		<div class="column-titlelg">Today's Log:</div>
 
 		<div v-for="meal in meals">
@@ -49,19 +48,18 @@
 		</div>
 	</div>
 
+	<!-- searchFoods -->
 	<div class="mdl-cell mdl-cell--6-col">
 		<div>
 			<div>Search Foods:</div>
-			<!-- <form v-on:submit.stop="addNewFood"> -->
-			<!-- <form> -->
-			<div class="mdl-grid">
+			<form class="mdl-grid" v-on:submit.prevent="addNewFood">
 				<input class="mdl-cell mdl-cell--6-col column"
 				v-model="newfood" placeholder="Add Food">
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column">
+				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column"
+				type="submit">
 	  			<i class="material-icons">search</i>
 				</button>
-	  		</div>
-			<!-- </form> -->
+			</form>
 		</div>
 	</div>
 

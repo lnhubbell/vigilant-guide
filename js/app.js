@@ -13,8 +13,16 @@
 //   }
 // })
 
-var currentDay = new Vue({
-    el: '#currentDay',
+            // fetchV1IntermediaryUsers: function()
+            // {
+            //     this.$http.get('/api/v1_users', function(v1users)
+            //     {
+            //         this.$set('v1_user',v1users);
+            //     });
+            // },
+
+var nutritionApp = new Vue({
+    el: '#nutritionApp',
     data: {
         meals: [
             { 
@@ -60,11 +68,28 @@ var currentDay = new Vue({
         newfood: undefined,
     },
     methods: {
-        // addNewFood: function () {
-        //     console.log('adding new food')
-        //     console.log(newfood)
-        // }
-    }
+        addNewFood: function () {
+            console.log(currentDay.myfoods)
+            console.log(this.newfood)
+        },
+        fetchFoodData: function(fetch) {
+            this.$http.get('/api/xxxx/' + fetch )
+                .success(function(response){
+                   this.foodSources = response;
+                })
+                .error(function(){
+
+                });
+        },        
+    },
 
 });
+
+// var searchFoods = new Vue({
+//     el: '#searchFoods',
+//     data: {
+//     },    
+// });
+
+
 

@@ -1,0 +1,44 @@
+{
+  "roadtrip": {
+    "date": "October 5, 2015 to October 10, 2015",
+    "states": "georgia, tennessee, missouri, iowa, south dakota, wyoming, montana, idaho, washington",
+    "summary": "Exploring the West on the way to Seattle!",
+    "title": "Roadtrip out West"
+  },
+  "asia": {
+    "date": "February 28, 2016 to March, 14 2016",
+    "countries": "thailand, cambodia, vietnam",
+    "summary": "Exploring parts of Southeast Asia with friends!",
+    "title": "Southeast Asia"
+  },
+  "europe": {
+    "date": "April 29, 2015 to May 12, 2015",
+    "countries": "italy, greece, montenegro, croatia, slovenia",
+    "summary": "Cruising through the Mediterranean and visiting Rome and Venice!",
+    "title": "Mediterranean Cruise"
+  },
+  "yellowstone": {
+    "date": "February 10, 2017 to February 14, 2017",
+    "states": "montana, wyoming",
+    "summary": "Visiting my brother and snowmobiling in Yellowstone!",
+    "title": "Yellowstone"
+  },
+  "grandcanyon": {
+    "date": "November 22, 2016 to November 29, 2016",
+    "states": "arizona, california",
+    "summary": "Visiting my cousin and hiking the Grand Canyon for Thanksgiving!",
+    "title": "Grand Canyon"
+  },
+  "pensacola": {
+    "date": "September 3, 2015 to September 7, 2015",
+    "states": "florida",
+    "summary": "A long weekend with friends at the beach!",
+    "title": "Beach Weekend"
+  },
+  "nashville": {
+    "date": "August 24, 2016 to August 28, 2016",
+    "states": "tennessee",
+    "summary": "Checking out the city and attending a friends wedding!",
+    "title": "Nashville"
+  }
+}
