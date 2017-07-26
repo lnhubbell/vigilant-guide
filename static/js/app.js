@@ -2,6 +2,7 @@ var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
         foods: [],
+        selected_foods: [],
         meals: [
             {
                 name: 'breakfast',
@@ -62,6 +63,9 @@ var nutritionApp = new Vue({
             }, response => {
             });
         },
+        selectFood: function(item) {
+            this.selected_foods.push(item);
+        }
     },
 
 });

@@ -39,15 +39,24 @@
 <body>
 <div class="mdl-grid" id="nutritionApp">
 	<!-- currentDay Column -->
-	<div class="mdl-cell mdl-cell--6-col column">
+	<div class="mdl-cell mdl-cell--2-col column">
 		<div class="column-titlelg">Today's Log:</div>
 
 		<div v-for="meal in meals">
 			<div class="mdl-cell--1-offset column-titlemd">{{meal.name}}</div>
-			<div class="mdl-cell--1-offset column-contents" 
+			<div class="mdl-cell--1-offset column-contents"
 			v-for="food in meal.foods">
 				{{food.name}}
 			</div>
+		</div>
+	</div>
+
+
+	<div class="mdl-cell mdl-cell--3-col column">
+		<div class="column-titlelg">Selected Foods:</div>
+
+		<div v-for="food in selected_foods">
+			{{food.name}}
 		</div>
 	</div>
 
@@ -65,9 +74,33 @@
 			</form>
 		</div>
 		<div v-for="food in foods">
-			Name of Food: {{food.name}}
+			<span v-on:click="selectFood(food)">{{food.name}}</span>
 		</div>
 	</div>
+
+	<div class="mdl-layout__content">
+         <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--1-col graybox">Folate, DFE</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Niacin</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Riboflavin</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Thiamin</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin A, IU</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin B-6</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin B-12</div>
+
+         </div>
+         <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--1-col graybox">1</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">2</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">3</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">4</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">5</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">6</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">7</div>
+         </div>
+	</div>
+
+
 
 </div>
 </body>
