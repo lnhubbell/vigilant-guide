@@ -39,7 +39,7 @@
 <body>
 <div class="mdl-grid" id="nutritionApp">
 	<!-- currentDay Column -->
-	<div class="mdl-cell mdl-cell--2-col column">
+	<div class="mdl-cell mdl-cell--4-col column">
 		<div class="column-titlelg">Today's Log:</div>
 
 		<div v-for="meal in meals">
@@ -48,15 +48,6 @@
 			v-for="food in meal.foods">
 				{{food.name}}
 			</div>
-		</div>
-	</div>
-
-
-	<div class="mdl-cell mdl-cell--3-col column">
-		<div class="column-titlelg">Selected Foods:</div>
-
-		<div v-for="food in selected_foods">
-			{{food.name}}
 		</div>
 	</div>
 
@@ -80,6 +71,7 @@
 
 	<div class="mdl-layout__content">
          <div class="mdl-grid">
+         	<div class="mdl-cell mdl-cell--3-col graybox">Selected Food</div>
             <div class="mdl-cell mdl-cell--1-col graybox">Folate, DFE</div>
             <div class="mdl-cell mdl-cell--1-col graybox">Niacin</div>
             <div class="mdl-cell mdl-cell--1-col graybox">Riboflavin</div>
@@ -89,15 +81,40 @@
             <div class="mdl-cell mdl-cell--1-col graybox">Vitamin B-12</div>
 
          </div>
-         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--1-col graybox">1</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">2</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">3</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">4</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">5</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">6</div>
-            <div class="mdl-cell mdl-cell--1-col graybox">7</div>
+         <div class="mdl-grid" v-for="food in selected_foods">
+	        <div class="mdl-cell mdl-cell--3-col graybox">{{food.name}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[435].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[406].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[405].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[404].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[318].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[415].value}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[418].value}}</div>
          </div>
+         <div class="mdl-grid">
+	        <div class="mdl-cell mdl-cell--3-col graybox">Total</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[435]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[406]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[405]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[404]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[318]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[415]}}</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_totals[418]}}</div>
+         </div>
+
+         <div class="mdl-grid">
+	        <div class="mdl-cell mdl-cell--3-col graybox">Minimum</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">400 mcg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">20mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">1.7mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">1.5mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">1000IU</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">2mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">6ug</div>
+         </div>
+
+
+
 	</div>
 
 
