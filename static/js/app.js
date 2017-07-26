@@ -1,61 +1,23 @@
 
-// var app = new Vue({
-//   el: '#app',
-//   data: {
-//     message: 'Hello Vue!'
-//   }
-// })
-
-// var app2 = new Vue({
-//   el: '#app-2',
-//   data: {
-//     message: 'You loaded this page on ' + new Date()
-//   }
-// })
-
-            // fetchV1IntermediaryUsers: function()
-            // {
-            //     this.$http.get('/api/v1_users', function(v1users)
-            //     {
-            //         this.$set('v1_user',v1users);
-            //     });
-            // },
-
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
         meals: [
             { 
                 name: 'breakfast',
-                foods: [
-                    {name:'apple',serving:1},
-                    {name:'egg',serving:2},
-                    {name:'coffee',serving:1}
-                ],
+                foods: [],
             },
             { 
                 name: 'lunch',
-                foods: [
-                    {name:'apple',serving:1},
-                    {name:'egg',serving:2},
-                    {name:'coffee',serving:1}
-                ],
+                foods: [],
             },
             { 
                 name: 'dinner',
-                foods: [
-                    {name:'apple',serving:1},
-                    {name:'egg',serving:2},
-                    {name:'coffee',serving:1}
-                ],
+                foods: [],
             },
             { 
                 name: 'snacks',
-                foods: [
-                    {name:'apple',serving:1},
-                    {name:'egg',serving:2},
-                    {name:'coffee',serving:1}
-                ],
+                foods: [],
             }
         ],
         myfoods: [
@@ -69,7 +31,8 @@ var nutritionApp = new Vue({
     },
     methods: {
         addNewFood: function () {
-            console.log(currentDay.myfoods)
+            console.log(this.meal.value)
+            console.log(this.meals)
             console.log(this.newfood)
         },
         fetchFoodData: function(fetch) {
@@ -80,16 +43,12 @@ var nutritionApp = new Vue({
                 .error(function(){
 
                 });
-        },        
+        },
+        setMeal: function() {
+            console.log('setting Meal')
+            console.log(document.querySelector(meal).getAttribute('data-val'));
+        },
     },
-
 });
-
-// var searchFoods = new Vue({
-//     el: '#searchFoods',
-//     data: {
-//     },    
-// });
-
 
 
