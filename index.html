@@ -165,6 +165,18 @@
             <div class="mdl-cell mdl-cell--1-col graybox">{{nutrient_minimums[418] - nutrient_totals[418] | round}}ug</div>
          </div>
 
+         <button v-on:click="getRecommendations()">Get Recommendations</button>
+         <div class="mdl-grid" v-for="food in recommended_foods">
+	        <div class="mdl-cell mdl-cell--3-col graybox">{{food.name}}:</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[435].value}}mcg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[406].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[405].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[404].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[318].value}}IU</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[415].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[418].value}}ug</div>
+         </div>
+
 
 	</div>
 
