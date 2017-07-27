@@ -60,21 +60,54 @@
 		<div class="mdl-cell">
 			<select v-model="newFood.meal">
 			  <option disabled value="">Please Select a Meal</option>
-			  <option v-for="meal in meals">{{meal.name}}</option>
+			  <option v-for="meal in meals">{{meal}}</option>
 			</select>
 		</div>
-		<div class="mdl-cell" v-if="newFood.name">
-			<select v-model="newFood.servingType">
-			  <option disabled value="">Please select Serving Type</option>
-			  <option v-for="meal in meals">{{meal.name}}</option>
-			</select>
+		<div class="mdl-grid">
+			<form class="mdl-cell" v-if="newFood.servingType">
+				<input class="mdl-cell mdl-cell--6-col column"
+				v-model="newFood.servingSize" placeholder="Enter Serving Amt">
+			</form>
+			<div class="mdl-cell" v-if="newFood.meal">
+				<select v-model="newFood.servingType">
+				  <option disabled value="">Please select Serving Type</option>
+				  <option v-for="type in servingTypes">{{type}}</option>
+				</select>
+			</div>
 		</div>
-		<div class="mdl-cell" v-if="newFood.servingType">
-			<select v-model="newFood.servingSize">
-			  <option disabled value="">Please select Serving Amt</option>
-			  <option v-for="meal in meals">{{meal.name}}</option>
-			</select>
-		</div>
+	</div>
+
+	<div class="mdl-cell mdl-grid">
+		<div class="mdl-cell mdl-cell--5-col column">{{newFood.name}}</div>
+		<div class="mdl-cell mdl-cell--3-col column">{{newFood.meal}}</div>
+		<div class="mdl-cell mdl-cell--3-col column">{{newFood.servingType}}</div>
+		<div class="mdl-cell mdl-cell--1-col column">{{newFood.servingSize}}</div>		
+		<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column"
+		v-on:click="addNewFood()">
+  			<i class="material-icons">add</i>
+		</button>
+
+<!-- 		 <div class="mdl-grid">
+         	<div class="mdl-cell mdl-cell--3-col graybox">Selected Food</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Folate, DFE (mcg)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Niacin (mg)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Riboflavin (mg)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Thiamin (mg)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin A, IU (IU)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin B-6 (mg)</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">Vitamin B-12 (ug)</div>
+
+         </div>
+         <div class="mdl-grid" v-for="food in selected_foods">
+	        <div class="mdl-cell mdl-cell--3-col graybox">{{food.name}}:</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[435].value}}mcg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[406].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[405].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[404].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[318].value}}IU</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[415].value}}mg</div>
+            <div class="mdl-cell mdl-cell--1-col graybox">{{food.nutrients[418].value}}ug</div>
+         </div> -->
 	</div>
 
 	<div class="mdl-layout__content">
