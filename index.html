@@ -24,19 +24,30 @@
 </head>
 
 <body>
-<div class="mdl-grid" id="nutritionApp">
-	<!-- currentDay Column -->
-<!-- 	<div class="mdl-cell mdl-cell--4-col column">
-		<div class="column-titlelg">Today's Log:</div>
 
-		<div v-for="meal in meals">
-			<div class="mdl-cell--1-offset column-titlemd">{{meal.name}}</div>
-			<div class="mdl-cell--1-offset column-contents"
-			v-for="food in meal.foods">
-				{{food.name}}
-			</div>
-		</div>
-	</div> -->
+<!-- HEADER -->
+		<!-- Always shows a header, even in smaller screens. -->
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		  <header class="mdl-layout__header">
+		    <div class="mdl-layout__header-row">
+		      <!-- Title -->
+		      <span class="mdl-layout-title">Nutrient Balance</span>
+		      <!-- Add spacer, to align navigation to the right -->
+		      <div class="mdl-layout-spacer"></div>
+		      <!-- Navigation. We hide it in small screens. -->
+		      <nav class="mdl-navigation mdl-layout--large-screen-only">
+		        <a class="mdl-navigation__link" href="">Github</a>
+		        <a class="mdl-navigation__link" href="">About</a>
+		      </nav>
+		    </div>
+		  </header>
+
+		  <main class="mdl-layout__content">
+		    <div class="page-content">
+<!-- END HEADER -->
+
+<!-- MAIN CONTENT -->
+<div class="mdl-grid" id="nutritionApp">
 
 	<!-- searchFoods -->
 	<div class="mdl-cell mdl-cell--6-col column">
@@ -137,7 +148,6 @@
 	</div>
 
 
-
 	<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 	  <thead>
 	    <tr>
@@ -156,9 +166,15 @@
 	    </tr>
 	  </tbody>
 	</table>
-
-
 </div>
+<!-- END MAIN CONTENT -->
+
+		    </div>
+		  </main>
+		</div>
+
+
+
 </body>
 
 <script src="js/app.js"></script>
