@@ -21,16 +21,12 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-	<!--getmdl-select-->
-<!-- 	<link rel="stylesheet" href="node_modules/getmdl-select/getmdl-select.min.css">
-	<script defer src="/node_modules/getmdl-select/getmdl-select.min.js"></script> -->
-
 </head>
 
 <body>
 <div class="mdl-grid" id="nutritionApp">
 	<!-- currentDay Column -->
-	<div class="mdl-cell mdl-cell--4-col column">
+<!-- 	<div class="mdl-cell mdl-cell--4-col column">
 		<div class="column-titlelg">Today's Log:</div>
 
 		<div v-for="meal in meals">
@@ -40,10 +36,10 @@
 				{{food.name}}
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- searchFoods -->
-	<div class="mdl-cell mdl-cell--6-col">
+	<div class="mdl-cell mdl-cell--6-col column">
 		<div>
 			<div>Search Foods:</div>
 			<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfood)">
@@ -57,6 +53,27 @@
 		</div>
 		<div v-for="food in foods">
 			<span v-on:click="selectFood(food)">{{food.name}}</span>
+		</div>
+	</div>
+
+	<div class="mdl-cell mdl-cell--6-col column">
+		<div class="mdl-cell">
+			<select v-model="newFood.meal">
+			  <option disabled value="">Please Select a Meal</option>
+			  <option v-for="meal in meals">{{meal.name}}</option>
+			</select>
+		</div>
+		<div class="mdl-cell" v-if="newFood.name">
+			<select v-model="newFood.servingType">
+			  <option disabled value="">Please select Serving Type</option>
+			  <option v-for="meal in meals">{{meal.name}}</option>
+			</select>
+		</div>
+		<div class="mdl-cell" v-if="newFood.servingType">
+			<select v-model="newFood.servingSize">
+			  <option disabled value="">Please select Serving Amt</option>
+			  <option v-for="meal in meals">{{meal.name}}</option>
+			</select>
 		</div>
 	</div>
 

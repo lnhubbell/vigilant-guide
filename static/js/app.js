@@ -16,6 +16,12 @@ var nutritionApp = new Vue({
     data: {
         foods: [],
         selected_foods: [],
+        newFood: {
+            name: '',
+            meal: '',
+            servingType: '',
+            servingSize: '',
+        },
         meals: [
             {
                 name: 'breakfast',
@@ -33,13 +39,6 @@ var nutritionApp = new Vue({
                 name: 'snacks',
                 foods: [],
             }
-        ],
-        myfoods: [
-            // example data array
-            // {
-            //     name: undefined,
-            //     meal: undefined,
-            // },
         ],
         newfood: undefined,
         nutrient_ids: [
@@ -71,11 +70,6 @@ var nutritionApp = new Vue({
         }
     },
     methods: {
-        addNewFood: function () {
-            console.log(this.meal.value)
-            console.log(this.meals)
-            console.log(this.newfood)
-        },
         fetchFoodData: function(fetch) {
             this.$http.get('http://127.0.0.1:3000/search?search_term=' + fetch).then(response => {
                 nutritionApp.foods = response.body.list.item;
@@ -97,15 +91,15 @@ var nutritionApp = new Vue({
                     "415": 0,
                     "418": 0
 
-                }
+                };
                 for (var i = nutrients.length - 1; i >= 0; i--) {
                     if (this.nutrient_ids.indexOf(nutrients[i].nutrient_id) > -1) {
                         item.nutrients[nutrients[i].nutrient_id] = {
                             name: nutrients[i].name,
                             value: nutrients[i].value
                         };
-                    };
-                };
+                    }
+                }
                 console.log('processed item: ', item);
 
                 this.selected_foods.push(item);
@@ -134,7 +128,7 @@ var nutritionApp = new Vue({
                 this.nutrient_totals[318] += parseFloat(food.nutrients[318].value);
                 this.nutrient_totals[415] += parseFloat(food.nutrients[415].value);
                 this.nutrient_totals[418] += parseFloat(food.nutrients[418].value);
-            };
+            }
 
         }
     },
