@@ -96,16 +96,7 @@ var nutritionApp = new Vue({
 
                 var someData = response.body;
                 var nutrients = someData.report.food.nutrients;
-                item.nutrients = {
-                    // "435": 0,
-                    // "406": 0,
-                    // "405": 0,
-                    // "404": 0,
-                    // "318": 0,
-                    // "415": 0,
-                    // "418": 0
-
-                };
+                item.nutrients = {};
                 // setNutrientTotals(item.nutrients, 'zero');
 
                 for (var k=0; k<this.nutrient_ids.length; k++) {
