@@ -95,25 +95,17 @@
 	  <thead>
 	    <tr>
 	      <th class="mdl-data-table__cell--non-numeric"><div><span>Selected Food</span></div></th>
-	      <th class="rotate"><div><span>Folate, DFE (mcg)</span></div></th>
-	      <th class="rotate"><div><span>Niacin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Riboflavin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Thiamin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin A, IU (IU)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin B-6 (mg)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin B-12 (ug)</span></div></th>
+	      <template v-for="nutrient in nutrients">
+	      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
+	      </template>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr v-for="food in selected_foods">
 	      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
-		  <td>{{food.nutrients[435].value | round}}</td>
-		  <td>{{food.nutrients[406].value | round}}</td>
-		  <td>{{food.nutrients[405].value | round}}</td>
-		  <td>{{food.nutrients[404].value | round}}</td>
-		  <td>{{food.nutrients[318].value | round}}</td>
-		  <td>{{food.nutrients[415].value | round}}</td>
-		  <td>{{food.nutrients[418].value | round}}</td>
+	      <template v-for="nutrient in nutrients">
+	      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+	      </template>
 	    </tr>
 
 		<tr>
@@ -149,26 +141,18 @@
 	<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 	  <thead>
 	    <tr>
-	      <th class="mdl-data-table__cell--non-numeric">Recommended Food</th>
-	      <th class="rotate"><div><span>Folate, DFE (mcg)</span></div></th>
-	      <th class="rotate"><div><span>Niacin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Riboflavin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Thiamin (mg)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin A, IU (IU)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin B-6 (mg)</span></div></th>
-	      <th class="rotate"><div><span>Vitamin B-12 (ug)</span></div></th>
+	      <th class="mdl-data-table__cell--non-numeric"><div><span>Recommended Food</span></div></th>
+	      <template v-for="nutrient in nutrients">
+	      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
+	      </template>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr v-for="food in recommended_foods">
 	      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
-		  <td>{{food.nutrients[435].value}}</td>
-		  <td>{{food.nutrients[406].value}}</td>
-		  <td>{{food.nutrients[405].value}}</td>
-		  <td>{{food.nutrients[404].value}}</td>
-		  <td>{{food.nutrients[318].value}}</td>
-		  <td>{{food.nutrients[415].value}}</td>
-		  <td>{{food.nutrients[418].value}}</td>
+	      <template v-for="nutrient in nutrients">
+	      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+	      </template>
 	    </tr>
 	  </tbody>
 	</table>

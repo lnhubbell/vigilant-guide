@@ -34,43 +34,57 @@ var nutritionApp = new Vue({
                 id: "435",
                 total: 0,
                 minimum: 400,
-                food_map: ["16357", "16370"]
+                food_map: ["16357", "16370"],
+                name: "Folate, DFE (mcg)"
             },
             {
                 id: "406",
                 total: 0,
                 minimum: 20,
-                food_map: ["16097", "05718"]
+                food_map: ["16097", "05718"],
+                name: "Niacin (mg)"
             },
             {
                 id: "405",
                 total: 0,
                 minimum: 1.7,
-                food_map: ["17225", "12061"]
+                food_map: ["17225", "12061"],
+                name: "Riboflavin (mg)"
             },
             {
                 id: "404",
                 total: 0,
                 minimum: 1.5,
-                food_map: ["11811", "12151"]
+                food_map: ["11811", "12151"],
+                name: "Thiamin (mg)"
             },
             {
                 id: "318",
                 total: 0,
                 minimum: 1000,
-                food_map: ["11124", "11510", "11790"]
+                food_map: ["11124", "11510", "11790"],
+                name: "Vitamin A, IU (IU)"
             },
             {
                 id: "415",
                 total: 0,
                 minimum: 2,
-                food_map: ["15221", "09037"]
+                food_map: ["15221", "09037"],
+                name: "Vitamin B-6 (mg)"
             },
             {
                 id: "418",
                 total: 0,
                 minimum: 6,
-                food_map: ["15088", "15047"]
+                food_map: ["15088", "15047"],
+                name: "Vitamin B-12 (ug)"
+            },
+            {
+                id: "291",
+                total: 0,
+                minimum: 30,
+                food_map: ["09340", "09340"],
+                name: "Fiber (g)"
             }
         ],
         low_nutrients: [],
