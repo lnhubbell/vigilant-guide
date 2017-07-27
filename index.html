@@ -115,44 +115,31 @@
 		  <td>{{food.nutrients[415].value | round}}</td>
 		  <td>{{food.nutrients[418].value | round}}</td>
 	    </tr>
-		 <tr>
+
+		<tr>
 	        <td class="mdl-data-table__cell--non-numeric">Daily Total:</td>
-            <td>{{nutrient_totals[435] | round}}</td>
-            <td>{{nutrient_totals[406] | round}}</td>
-            <td>{{nutrient_totals[405] | round}}</td>
-            <td>{{nutrient_totals[404] | round}}</td>
-            <td>{{nutrient_totals[318] | round}}</td>
-            <td>{{nutrient_totals[415] | round}}</td>
-            <td>{{nutrient_totals[418] | round}}</td>
-         </tr>
-         <tr>
+            <template v-for="nutrient in nutrients">
+	            <td>{{nutrient.total | round}}</td>
+	        </template>
+        </tr>
+
+        <tr>
 	        <td class="mdl-data-table__cell--non-numeric">Daily Minimum:</td>
-            <td>{{nutrient_minimums[435] | round}}</td>
-            <td>{{nutrient_minimums[406] | round}}</td>
-            <td>{{nutrient_minimums[405] | round}}</td>
-            <td>{{nutrient_minimums[404] | round}}</td>
-            <td>{{nutrient_minimums[318] | round}}</td>
-            <td>{{nutrient_minimums[415] | round}}</td>
-            <td>{{nutrient_minimums[418] | round}}</td>
-         </tr>
-         <tr>
+            <template v-for="nutrient in nutrients">
+	            <td>{{nutrient.minimum | round}}</td>
+	        </template>
+        </tr>
+
+        <tr>
 	        <td class="mdl-data-table__cell--non-numeric">You Need:</td>
-            <td>{{nutrient_minimums[435] - nutrient_totals[435] | round}}</td>
-            <td>{{nutrient_minimums[406] - nutrient_totals[406] | round}}</td>
-            <td>{{nutrient_minimums[405] - nutrient_totals[405] | round}}</td>
-            <td>{{nutrient_minimums[404] - nutrient_totals[404] | round}}</td>
-            <td>{{nutrient_minimums[318] - nutrient_totals[318] | round}}</td>
-            <td>{{nutrient_minimums[415] - nutrient_totals[415] | round}}</td>
-            <td>{{nutrient_minimums[418] - nutrient_totals[418] | round}}</td>
-         </tr>
+            <template v-for="nutrient in nutrients">
+	            <td>{{nutrient.minimum - nutrient.total | round}}</td>
+	        </template>
+        </tr>
+
 	  </tbody>
 	</table>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+
 	<div class="mdl-cell mdl-cell--12-col column">
 	 <button v-on:click="getRecommendations()">Get Recommendations</button>
 	</div>

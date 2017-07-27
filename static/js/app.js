@@ -29,46 +29,66 @@ var nutritionApp = new Vue({
         newfoodinput: undefined,
         meals: [ 'breakfast', 'lunch', 'dinner', 'snacks' ],
         servingTypes: [],
-        nutrient_ids: [
-            "435",
-            "406",
-            "405",
-            "404",
-            "318",
-            "415",
-            "418"
+        nutrients: [
+            {
+                id: "435",
+                total: 0,
+                minimum: 400,
+                food_map: ["16357", "16370"]
+            },
+            {
+                id: "406",
+                total: 0,
+                minimum: 20,
+                food_map: ["16097", "05718"]
+            },
+            {
+                id: "405",
+                total: 0,
+                minimum: 1.7,
+                food_map: ["17225", "12061"]
+            },
+            {
+                id: "404",
+                total: 0,
+                minimum: 1.5,
+                food_map: ["11811", "12151"]
+            },
+            {
+                id: "318",
+                total: 0,
+                minimum: 1000,
+                food_map: ["11124", "11510", "11790"]
+            },
+            {
+                id: "415",
+                total: 0,
+                minimum: 2,
+                food_map: ["15221", "09037"]
+            },
+            {
+                id: "418",
+                total: 0,
+                minimum: 6,
+                food_map: ["15088", "15047"]
+            }
         ],
-        nutrient_totals: {
-            "435": 0,
-            "406": 0,
-            "405": 0,
-            "404": 0,
-            "318": 0,
-            "415": 0,
-            "418": 0
-        },
-        nutrient_minimums: {
-            "435": 400,
-            "406": 20,
-            "405": 1.7,
-            "404": 1.5,
-            "318": 1000,
-            "415": 2,
-            "418": 6
-        },
         low_nutrients: [],
-        recommended_foods_map: {
-            "435": ["16357", "16370"],
-            "406": ["16097", "05718"],
-            "405": ["17225", "12061"],
-            "404": ["11811", "12151"],
-            "318": ["11124", "11510", "11790"],
-            "415": ["15221", "09037"],
-            "418": ["15088", "15047"]
-        },
         recommended_foods: []
     },
     methods: {
+        nutrientsHaveId: function(id) {
+            for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                if (this.nutrients[i].id == id) {return true};
+            }
+            return false
+        },
+        nutrientById: function(id) {
+            for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                if (this.nutrients[i].id == id) {return this.nutrients[i]};
+            }
+            return false
+        },
         addNewFood: function() {
             // calculate the nutrients based on the total servings
             this.tallyNutrientsForSelection(this.newFood.foodObj);
@@ -94,6 +114,24 @@ var nutritionApp = new Vue({
             }, response => {
             });
         },
+        addNutrientsToItem: function(item, nutrients) {
+            item.nutrients = {};
+
+            for (var k=0; k<this.nutrients.length; k++) {
+                item.nutrients[this.nutrients[k].id] = 0;
+            }
+
+
+            for (var i = nutrients.length - 1; i >= 0; i--) {
+                if (this.nutrientsHaveId(nutrients[i].nutrient_id)) {
+                    item.nutrients[nutrients[i].nutrient_id] = {
+                        name: nutrients[i].name,
+                        value: nutrients[i].value
+                    };
+                }
+            }
+            return item
+        },
         selectFood: function(item) {
             this.newFood = {
                 name: '',
@@ -107,22 +145,8 @@ var nutritionApp = new Vue({
 
                 var someData = response.body;
                 var nutrients = someData.report.food.nutrients;
-                item.nutrients = {};
-                // setNutrientTotals(item.nutrients, 'zero');
 
-                for (var k=0; k<this.nutrient_ids.length; k++) {
-                    item.nutrients[this.nutrient_ids[k]] = 0;
-                }
-
-
-                for (var i = nutrients.length - 1; i >= 0; i--) {
-                    if (this.nutrient_ids.indexOf(nutrients[i].nutrient_id) > -1) {
-                        item.nutrients[nutrients[i].nutrient_id] = {
-                            name: nutrients[i].name,
-                            value: nutrients[i].value
-                        };
-                    }
-                }
+                item = this.addNutrientsToItem(item, nutrients);
 
                 this.servingTypes = [];
                 for (var j=0; j<nutrients[j].measures.length; j++) {
@@ -147,82 +171,53 @@ var nutritionApp = new Vue({
 
                 var someData = response.body;
                 var nutrients = someData.report.food.nutrients;
-                item.nutrients = {
-                    "435": 0,
-                    "406": 0,
-                    "405": 0,
-                    "404": 0,
-                    "318": 0,
-                    "415": 0,
-                    "418": 0
 
-                };
-                for (var i = nutrients.length - 1; i >= 0; i--) {
-                    if (this.nutrient_ids.indexOf(nutrients[i].nutrient_id) > -1) {
-                        item.nutrients[nutrients[i].nutrient_id] = {
-                            name: nutrients[i].name,
-                            value: nutrients[i].value
-                        };
-                    }
-                }
+                item = this.addNutrientsToItem(item, nutrients);
+
                 console.log('processed item: ', item);
                 return item
 
             }, response => {
             });
         },
-        setNutrientTotals: function(attribute, fn) {
-            switch (fn) {
-                case 'zero':
-                    for (var i=0; i<this.nutrient_ids.length; i++) {
-                        this.nutrient_totals[this.nutrient_ids[i]] = 0;
-                    }
-                    break;
-                case 'total':
-                    for (var j=0; j<this.nutrient_ids.length; j++) {
-                        this.nutrient_totals[this.nutrient_ids[j]] +=
-                            parseFloat(attribute[this.nutrient_ids[j]].value);
-                    }
-                    break;
-            }
-        },
         tallyNutrientsForSelection: function(food) {
-            for (var i=0; i<this.nutrient_ids.length; i++) {
-                food.nutrients[this.nutrient_ids[i]].value *=
+            for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                food.nutrients[this.nutrients[i].id].value *=
                     this.newFood.servingSize;
             }
             console.log(this.newFood)
         },
         totalNutrients: function() {
-            for (var i=0; i<this.nutrient_ids.length; i++) {
-                this.nutrient_totals[this.nutrient_ids[i]] = 0;
+            for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                this.nutrients[i].total = 0;
             }
-            // this.setNutrientIds(null,'zero');
 
             for (var k = this.selected_foods.length - 1; k >= 0; k--) {
                 var food = this.selected_foods[k];
 
-                for (var j=0; j<this.nutrient_ids.length; j++) {
-                    this.nutrient_totals[this.nutrient_ids[j]] += parseFloat(food.nutrients[this.nutrient_ids[j]].value);
+                for (var j = this.nutrients.length - 1; j >= 0; j--) {
+                    this.nutrients[j].total += parseFloat(food.nutrients[this.nutrients[j].id].value);
                 }
-                // this.setNutrientIds(food.nutrients,'total');
             }
         },
         lowNutrients: function() {
             this.low_nutrients = [];
-            for (var i = this.nutrient_ids.length - 1; i >= 0; i--) {
-                var nid = this.nutrient_ids[i];
-                if ((this.nutrient_minimums[nid] - this.nutrient_totals[nid]) > 0) {
+            for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                var nid = this.nutrients[i].id;
+                if ((this.nutrients[i].minimum - this.nutrients[i].total) > 0) {
                     this.low_nutrients.push(nid);
                 };
             }
+
         },
         getRecommendations: function() {
             console.log('getting recommended_foods');
             this.lowNutrients();
             console.log('low_nutrients: ', this.low_nutrients);
             for (var i = this.low_nutrients.length - 1; i >= 0; i--) {
-                var foods = this.recommended_foods_map[this.low_nutrients[i]];
+
+                var foods = this.nutrientById(this.low_nutrients[i]).food_map;
+
                 console.log('foods', foods);
                 for (var f = foods.length - 1; f >= 0; f--) {
                     var food = foods[f];
@@ -238,24 +233,9 @@ var nutritionApp = new Vue({
                 console.log('recommended food: ', someData);
                 var nutrients = someData.report.food.nutrients;
                 var item = someData.report.food;
-                item.nutrients = {
-                    "435": 0,
-                    "406": 0,
-                    "405": 0,
-                    "404": 0,
-                    "318": 0,
-                    "415": 0,
-                    "418": 0
 
-                };
-                for (var i = nutrients.length - 1; i >= 0; i--) {
-                    if (this.nutrient_ids.indexOf(nutrients[i].nutrient_id) > -1) {
-                        item.nutrients[nutrients[i].nutrient_id] = {
-                            name: nutrients[i].name,
-                            value: nutrients[i].value
-                        };
-                    }
-                }
+                item = this.addNutrientsToItem(item, nutrients);
+
                 console.log('processed item: ', item);
 
                 this.recommended_foods.push(item);
