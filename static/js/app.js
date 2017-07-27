@@ -1,3 +1,16 @@
+Vue.filter('round', function(value, decimals) {
+    if(!value) {
+        value = 0;
+    }
+
+    if(!decimals) {
+        decimals = 3;
+    }
+
+    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    return value;
+});
+
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
@@ -38,7 +51,24 @@ var nutritionApp = new Vue({
             "415",
             "418"
         ],
-        nutrient_totals: {}
+        nutrient_totals: {
+            "435": 0,
+            "406": 0,
+            "405": 0,
+            "404": 0,
+            "318": 0,
+            "415": 0,
+            "418": 0
+        },
+        nutrient_minimums: {
+            "435": 400,
+            "406": 20,
+            "405": 1.7,
+            "404": 1.5,
+            "318": 1000,
+            "415": 2,
+            "418": 6
+        }
     },
     methods: {
         addNewFood: function () {
