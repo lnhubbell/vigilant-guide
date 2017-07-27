@@ -25,8 +25,8 @@ var nutritionApp = new Vue({
             servingSize: '',
             foodObj: {},
         },
-        // TODO [lji] why does removing this throw an error?
-        newfood: undefined,
+        // User search input
+        newfoodinput: undefined,
         meals: [ 'breakfast', 'lunch', 'dinner', 'snacks' ],
         servingTypes: [],
         nutrient_ids: [
@@ -68,7 +68,7 @@ var nutritionApp = new Vue({
 
             this.totalNutrients();
 
-            newFood = {
+            this.newFood = {
                 name: '',
                 meal: '',
                 servingType: '',
@@ -97,15 +97,22 @@ var nutritionApp = new Vue({
                 var someData = response.body;
                 var nutrients = someData.report.food.nutrients;
                 item.nutrients = {
-                    "435": 0,
-                    "406": 0,
-                    "405": 0,
-                    "404": 0,
-                    "318": 0,
-                    "415": 0,
-                    "418": 0
+                    // "435": 0,
+                    // "406": 0,
+                    // "405": 0,
+                    // "404": 0,
+                    // "318": 0,
+                    // "415": 0,
+                    // "418": 0
 
                 };
+                // setNutrientTotals(item.nutrients, 'zero');
+
+                for (var k=0; k<this.nutrient_ids.length; k++) {
+                    item.nutrients[this.nutrient_ids[k]] = 0;
+                }
+
+
                 for (var i = nutrients.length - 1; i >= 0; i--) {
                     if (this.nutrient_ids.indexOf(nutrients[i].nutrient_id) > -1) {
                         item.nutrients[nutrients[i].nutrient_id] = {
@@ -115,27 +122,50 @@ var nutritionApp = new Vue({
                     }
                 }
 
-                for (var k=0; k<nutrients[k].measures.length; k++) {
-                    this.servingTypes.push(nutrients[k].measures[k].label)
+                this.servingTypes = [];
+                for (var j=0; j<nutrients[j].measures.length; j++) {
+                    this.servingTypes.push(nutrients[j].measures[j].label)
                 }
 
                 console.log('processed item: ', item);
 
                 this.newFood.name = item.name;
+                this.newFood.foodObj = item;
                 // clear the search results
                 this.foods = [];
+                newfoodinput = '';
 
             }, response => {
             });
 
         },
+        setNutrientTotals: function(attribute, fn) {
+            switch (fn) {
+                case 'zero': 
+                    for (var i=0; i<this.nutrient_ids.length; i++) {
+                        this.nutrient_totals[this.nutrient_ids[i]] = 0;
+                    }
+                    break;
+                case 'total':
+                    for (var j=0; j<this.nutrient_ids.length; j++) {
+                        this.nutrient_totals[this.nutrient_ids[j]] += 
+                            parseFloat(attribute[this.nutrient_ids[j]].value);
+                    }
+                    break;
+            }
+        },
         tallyNutrientsForSelection: function(food) {
-            console.log(food);
+            for (var i=0; i<this.nutrient_ids.length; i++) {
+                food.nutrients[this.nutrient_ids[i]].value *= 
+                    this.newFood.servingSize;
+            }
+            console.log(this.newFood)
         },
         totalNutrients: function() {
             for (var i=0; i<this.nutrient_ids.length; i++) {
                 this.nutrient_totals[this.nutrient_ids[i]] = 0;
             }
+            // this.setNutrientIds(null,'zero');
 
             for (var k = this.selected_foods.length - 1; k >= 0; k--) {
                 var food = this.selected_foods[k];
@@ -143,17 +173,8 @@ var nutritionApp = new Vue({
                 for (var j=0; j<this.nutrient_ids.length; j++) {
                     this.nutrient_totals[this.nutrient_ids[j]] += parseFloat(food.nutrients[this.nutrient_ids[j]].value);
                 }
-                // this.nutrient_totals[435] += parseFloat(food.nutrients[435].value);
-                // this.nutrient_totals[406] += parseFloat(food.nutrients[406].value);
-                // this.nutrient_totals[405] += parseFloat(food.nutrients[405].value);
-                // this.nutrient_totals[404] += parseFloat(food.nutrients[404].value);
-                // this.nutrient_totals[318] += parseFloat(food.nutrients[318].value);
-                // this.nutrient_totals[415] += parseFloat(food.nutrients[415].value);
-                // this.nutrient_totals[418] += parseFloat(food.nutrients[418].value);
+                // this.setNutrientIds(food.nutrients,'total');
             }
-
-            console.log(this.nutrient_totals)
-
         }
     },
 });

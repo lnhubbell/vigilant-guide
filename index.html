@@ -42,9 +42,9 @@
 	<div class="mdl-cell mdl-cell--6-col column">
 		<div>
 			<div>Search Foods:</div>
-			<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfood)">
+			<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfoodinput)">
 				<input class="mdl-cell mdl-cell--6-col column"
-				v-model="newfood" placeholder="Add Food">
+				v-model="newfoodinput" placeholder="Add Food">
 				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column"
 				type="submit">
 	  			<i class="material-icons">search</i>
