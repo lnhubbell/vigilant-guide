@@ -107,13 +107,13 @@
 	  <tbody>
 	    <tr v-for="food in selected_foods">
 	      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
-		  <td>{{food.nutrients[435].value}}</td>
-		  <td>{{food.nutrients[406].value}}</td>
-		  <td>{{food.nutrients[405].value}}</td>
-		  <td>{{food.nutrients[404].value}}</td>
-		  <td>{{food.nutrients[318].value}}</td>
-		  <td>{{food.nutrients[415].value}}</td>
-		  <td>{{food.nutrients[418].value}}</td>
+		  <td>{{food.nutrients[435].value | round}}</td>
+		  <td>{{food.nutrients[406].value | round}}</td>
+		  <td>{{food.nutrients[405].value | round}}</td>
+		  <td>{{food.nutrients[404].value | round}}</td>
+		  <td>{{food.nutrients[318].value | round}}</td>
+		  <td>{{food.nutrients[415].value | round}}</td>
+		  <td>{{food.nutrients[418].value | round}}</td>
 	    </tr>
 		 <tr>
 	        <td class="mdl-data-table__cell--non-numeric">Daily Total:</td>
@@ -163,13 +163,13 @@
 	  <thead>
 	    <tr>
 	      <th class="mdl-data-table__cell--non-numeric">Recommended Food</th>
-	      <th>Folate, DFE (mcg)</th>
-	      <th>Niacin (mg)</th>
-	      <th>Riboflavin (mg)</th>
-	      <th>Thiamin (mg)</th>
-	      <th>Vitamin A, IU (IU)</th>
-	      <th>Vitamin B-6 (mg)</th>
-	      <th>Vitamin B-12 (ug)</th>
+	      <th class="rotate"><div><span>Folate, DFE (mcg)</span></div></th>
+	      <th class="rotate"><div><span>Niacin (mg)</span></div></th>
+	      <th class="rotate"><div><span>Riboflavin (mg)</span></div></th>
+	      <th class="rotate"><div><span>Thiamin (mg)</span></div></th>
+	      <th class="rotate"><div><span>Vitamin A, IU (IU)</span></div></th>
+	      <th class="rotate"><div><span>Vitamin B-6 (mg)</span></div></th>
+	      <th class="rotate"><div><span>Vitamin B-12 (ug)</span></div></th>
 	    </tr>
 	  </thead>
 	  <tbody>
