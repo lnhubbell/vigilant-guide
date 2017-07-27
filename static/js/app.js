@@ -29,6 +29,12 @@ var nutritionApp = new Vue({
         newfoodinput: undefined,
         meals: [ 'breakfast', 'lunch', 'dinner', 'snacks' ],
         servingTypes: [],
+        // In order to add another nutrient to the site, all you need to do is
+        // add another object to this list. The id is the nutrient id from the
+        // USDA API. The minimum is the daily minimum in the standard units for
+        // that nutrient. Total is 0. Food map is a list of ndbno's for foods
+        // that are high in that nutrient. The name should end with the
+        // standard units in parentheses.
         nutrients: [
             {
                 id: "435",
@@ -85,7 +91,17 @@ var nutritionApp = new Vue({
                 minimum: 30,
                 food_map: ["09340", "09340"],
                 name: "Fiber (g)"
+            },
+            {
+                id: "324",
+                total: 0,
+                minimum: 400,
+                food_map: ["01128", "15200"],
+                name: "Vitamin D (IU)"
             }
+
+
+
         ],
         low_nutrients: [],
         recommended_foods: []
