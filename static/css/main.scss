@@ -20,7 +20,26 @@ $font-med: 18px;
 		font-size: $font-med;
 		padding: 8px;
 		text-transform: capitalize;
-	}	
+	}
+}
+
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+    /* Magic Numbers */
+    translate(20px, 1px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0px;
 }
 
 // .test {
