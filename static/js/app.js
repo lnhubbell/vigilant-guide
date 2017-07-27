@@ -41,7 +41,7 @@ var nutritionApp = new Vue({
                 total: 0,
                 minimum: 400,
                 food_map: ["16357", "16370"],
-                name: "Folate, DFE (mcg)"
+                name: "Folate (mcg)"
             },
             {
                 id: "406",
@@ -69,7 +69,7 @@ var nutritionApp = new Vue({
                 total: 0,
                 minimum: 1000,
                 food_map: ["11124", "11510", "11790"],
-                name: "Vitamin A, IU (IU)"
+                name: "Vitamin A (IU)"
             },
             {
                 id: "415",
