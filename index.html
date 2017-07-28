@@ -28,20 +28,24 @@
 <!-- HEADER -->
 		<!-- Always shows a header, even in smaller screens. -->
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		  <header class="mdl-layout__header">
+		  <header class="mdl-layout__header navbar">
 		    <div class="mdl-layout__header-row">
 		      <!-- Title -->
-		      <span class="mdl-layout-title">Nutrient Balance</span>
+		      <span class="mdl-layout-title">FeedYourself</span>
 		      <!-- Add spacer, to align navigation to the right -->
 		      <div class="mdl-layout-spacer"></div>
 		      <!-- Navigation. We hide it in small screens. -->
-		      <nav class="mdl-navigation mdl-layout--large-screen-only">
-		        <a class="mdl-navigation__link" href="">Github</a>
-		        <a class="mdl-navigation__link" href="">About</a>
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link navbar-link" 
+		        href="https://github.com/lnhubbell/vigilant-guide">Github</a>
+		        <a class="mdl-navigation__link navbar-link" 
+		        href="">About</a>
 		      </nav>
 		    </div>
 		  </header>
 
+		  <!-- What is this here? / Why isn't there any closing tags?
+		  (It seems to work, I just don't understand - also no closing div on the above?) -->
 		  <main class="mdl-layout__content">
 		    <div class="page-content">
 <!-- END HEADER -->
@@ -49,59 +53,80 @@
 <!-- MAIN CONTENT -->
 <div class="mdl-grid" id="nutritionApp">
 
-	<!-- searchFoods -->
-	<div class="mdl-cell mdl-cell--6-col column">
-		<div>
-			<div>Search Foods:</div>
-			<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfoodinput)">
-				<input class="mdl-cell mdl-cell--6-col column"
-				v-model="newfoodinput" placeholder="Add Food">
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column"
-				type="submit">
-	  			<i class="material-icons">search</i>
-				</button>
-			</form>
+<!-- SEARCH AREA (1st fold) -->
+	<div class="mdl-cell mdl-cell--12-col mdl-grid">
+		<!-- searchBox -->
+		<div class="mdl-cell mdl-cell--4-col mdl-grid searchBox">
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="searchBox-titlemd">What are we having?</div>
+				<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfoodinput)">
+					<input class="mdl-cell mdl-cell--8-col"
+					v-model="newfoodinput" placeholder=" Add Food">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+					type="submit">
+		  			<i class="material-icons">search</i>
+					</button>
+				</form>
+			</div>
+			<div class="mdl-cell mdl-cell--12-col" v-for="food in foods">
+				<span class="searchBox-results" v-on:click="selectFood(food)">{{food.name}}</span>
+			</div>
 		</div>
-		<div v-for="food in foods">
-			<span v-on:click="selectFood(food)">{{food.name}}</span>
-		</div>
-	</div>
 
-	<div class="mdl-cell mdl-cell--6-col column">
-		<div class="mdl-cell">
-			<select v-model="newFood.meal">
-			  <option disabled value="">Please Select a Meal</option>
-			  <option v-for="meal in meals">{{meal}}</option>
-			</select>
-		</div>
-		<div class="mdl-grid">
-			<form class="mdl-cell" v-if="newFood.servingType">
-				<input class="mdl-cell mdl-cell--6-col column"
-				v-model="newFood.servingSize" placeholder="Enter Serving Amt">
-			</form>
-			<div class="mdl-cell" v-if="newFood.meal">
-				<select v-model="newFood.servingType">
-				  <option disabled value="">Please select Serving Type</option>
+		<!-- User specifics -->
+		<div class="mdl-cell mdl-cell--8-col mdl-grid appForm" 
+		dis-v-if="newFood.name">
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Meal:</div>
+				<select class="mdl-cell mdl-cell--8-col appForm-fields" 
+				v-model="newFood.meal">
+				  <option disabled value=""></option>
+				  <option v-for="meal in meals">{{meal}}</option>
+				</select>
+			</div>
+
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Portion:</div>
+				<select class="mdl-cell mdl-cell--8-col appForm-fields" 
+				v-model="newFood.servingType">
+				  <option disabled value=""></option>
 				  <option v-for="type in servingTypes">{{type}}</option>
 				</select>
 			</div>
+
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Amount:</div>
+				<form class="mdl-cell mdl-cell--8-col mdl-grid appForm-fields">
+					<input class="mdl-cell mdl-cell--12-col"
+					v-model="newFood.servingSize" type="number" step=".01"
+					placeholder="Enter Serving Amt">
+				</form>
+			</div>
 		</div>
+
 	</div>
 
+<!-- NewFood Display Area - while user is adding their selection -->
 	<div class="mdl-cell mdl-cell--12-col mdl-grid">
-		<div class="mdl-cell mdl-cell--5-col column">{{newFood.name}}</div>
-		<div class="mdl-cell mdl-cell--3-col column">{{newFood.meal}}</div>
-		<div class="mdl-cell mdl-cell--3-col column">{{newFood.servingType}}</div>
-		<div class="mdl-cell mdl-cell--1-col column">{{newFood.servingSize}}</div>
-		<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col column"
+		<div class="mdl-cell mdl-cell--4-col"></div>
+		<div class="mdl-cell mdl-cell--3-col">Meal:</div>
+		<div class="mdl-cell mdl-cell--3-col">Portion:</div>
+		<div class="mdl-cell mdl-cell--1-col">Amount:</div>
+	</div>		
+	<div class="mdl-cell mdl-cell--12-col mdl-grid">
+		<div class="mdl-cell mdl-cell--4-col">{{newFood.name}}</div>
+		<div class="mdl-cell mdl-cell--3-col">{{newFood.meal}}</div>
+		<div class="mdl-cell mdl-cell--3-col">{{newFood.servingType}}</div>
+		<div class="mdl-cell mdl-cell--1-col">{{newFood.servingSize}}</div>
+		<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
 		v-on:click="addNewFood()">
   			<i class="material-icons">add</i>
 		</button>
-
 	</div>
 
+	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
 
-
+	<!-- I hate tables Nathan!!!! -->
 	<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 	  <thead>
 	    <tr>
@@ -143,7 +168,9 @@
 	  </tbody>
 	</table>
 
-	<div class="mdl-cell mdl-cell--12-col column">
+	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
+
+	<div class="mdl-cell mdl-cell--12-col">
 	 <button v-on:click="getRecommendations()">Get Recommendations</button>
 	</div>
 
