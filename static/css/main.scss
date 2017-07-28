@@ -70,12 +70,31 @@ input::-webkit-inner-spin-button {
 }
 
 .displayTable {
-	//
+	background-color: $white;
+	padding: 12px;
+
+	&-data {
+		color: $primary-light;
+		font-size: $font-small;
+	}
+
+	&-titlemd {
+		color: $primary-light;
+		font-size: $font-med;
+		font-weight: bold;
+		text-transform: capitalize;
+	}
 }
 
 .pageBreak {
 	border-bottom: 1px solid $primary-light;
 	margin: 36px;
+}
+
+.userErrorMsg {
+	color: red;
+	font-size: $font-med;
+	text-align: center;
 }
 
 th.rotate {

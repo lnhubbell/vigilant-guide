@@ -31,6 +31,7 @@
 		  <header class="mdl-layout__header navbar">
 		    <div class="mdl-layout__header-row">
 		      <!-- Title -->
+		      <!-- TODO [] just playing w/ titles here -->
 		      <span class="mdl-layout-title">FeedYourself</span>
 		      <!-- Add spacer, to align navigation to the right -->
 		      <div class="mdl-layout-spacer"></div>
@@ -75,7 +76,7 @@
 
 		<!-- User specifics -->
 		<div class="mdl-cell mdl-cell--8-col mdl-grid appForm" 
-		dis-v-if="newFood.name">
+		v-if="newFood.name">
 			<div class="mdl-cell mdl-cell--4-col mdl-grid">
 				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Meal:</div>
 				<select class="mdl-cell mdl-cell--8-col appForm-fields" 
@@ -102,26 +103,38 @@
 					placeholder="Enter Serving Amt">
 				</form>
 			</div>
+
+			<div class="mdl-cell mdl-cell--12-col mdl-grid">
+				<div class="mdl-cell mdl-cell--2-col"></div>
+				<div class="mdl-cell mdl-cell--8-col userErrorMsg" 
+				v-if="userErrorMsg">{{userErrorMsg}}</div>
+				<div class="mdl-cell mdl-cell--2-col"></div>
+			</div>
 		</div>
 
 	</div>
 
 <!-- NewFood Display Area - while user is adding their selection -->
-	<div class="mdl-cell mdl-cell--12-col mdl-grid">
-		<div class="mdl-cell mdl-cell--4-col"></div>
-		<div class="mdl-cell mdl-cell--3-col">Meal:</div>
-		<div class="mdl-cell mdl-cell--3-col">Portion:</div>
-		<div class="mdl-cell mdl-cell--1-col">Amount:</div>
-	</div>		
-	<div class="mdl-cell mdl-cell--12-col mdl-grid">
-		<div class="mdl-cell mdl-cell--4-col">{{newFood.name}}</div>
-		<div class="mdl-cell mdl-cell--3-col">{{newFood.meal}}</div>
-		<div class="mdl-cell mdl-cell--3-col">{{newFood.servingType}}</div>
-		<div class="mdl-cell mdl-cell--1-col">{{newFood.servingSize}}</div>
-		<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
-		v-on:click="addNewFood()">
-  			<i class="material-icons">add</i>
-		</button>
+	<div class="mdl-cell mdl-cell--12-col mdl-grid displayTable"
+	v-if="newFood.name">
+		<div class="mdl-cell mdl-cell--12-col mdl-grid">
+			<div class="mdl-cell mdl-cell--4-col"></div>
+			<div class="mdl-cell mdl-cell--3-col displayTable-titlemd">Meal:</div>
+			<div class="mdl-cell mdl-cell--3-col displayTable-titlemd">Portion:</div>
+			<div class="mdl-cell mdl-cell--1-col displayTable-titlemd">Amount:</div>
+		</div>		
+		<div class="mdl-cell mdl-cell--12-col mdl-grid">
+			<div class="mdl-cell mdl-cell--4-col">{{newFood.name}}</div>
+			<div class="mdl-cell mdl-cell--3-col">{{newFood.meal}}</div>
+			<div class="mdl-cell mdl-cell--3-col">{{newFood.servingType}}</div>
+			<div class="mdl-cell mdl-cell--1-col">{{newFood.servingSize}}</div>
+			<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+			v-if="newFood" v-on:click="addNewFood()">
+	  			<i class="material-icons">add</i>
+			</button>
+		</div>
+
+		<!-- TODO [lji] Add the nutrient profiles here so they can see as they edit serving sizes, etc .... or maybe display on the search results so they can use that to make a choice on what they had? -->
 	</div>
 
 	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>

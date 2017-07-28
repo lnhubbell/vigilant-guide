@@ -37,9 +37,26 @@ input::-webkit-inner-spin-button {
     font-size: 12px;
     font-weight: bold; }
 
+.displayTable {
+  background-color: #ffffff;
+  padding: 12px; }
+  .displayTable-data {
+    color: #5f5fc4;
+    font-size: 12px; }
+  .displayTable-titlemd {
+    color: #5f5fc4;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize; }
+
 .pageBreak {
   border-bottom: 1px solid #5f5fc4;
   margin: 36px; }
+
+.userErrorMsg {
+  color: red;
+  font-size: 18px;
+  text-align: center; }
 
 th.rotate {
   /* Something you can count on */

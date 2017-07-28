@@ -104,7 +104,8 @@ var nutritionApp = new Vue({
 
         ],
         low_nutrients: [],
-        recommended_foods: []
+        recommended_foods: [],
+        userErrorMsg: undefined,
     },
     methods: {
         nutrientsHaveId: function(id) {
@@ -120,6 +121,24 @@ var nutritionApp = new Vue({
             return false
         },
         addNewFood: function() {
+            // TODO [lji] Do we need this? We could also only make the add button available once all options are selected
+            // if (!this.newFood) {
+            //     this.userErrorMsg = '';
+            //     return;                
+            // }
+            if (!this.newFood.meal) {
+                this.userErrorMsg = 'Please select a meal for this food.';
+                return;
+            }
+            if (!this.newFood.servingType) {
+                this.userErrorMsg = 'Please select a portion for this food.';
+                return;
+            }
+            if (!this.newFood.servingSize) {
+                this.userErrorMsg = 'Please select a portion amount for this food.';
+                return;
+            }
+
             // calculate the nutrients based on the total servings
             this.tallyNutrientsForSelection(this.newFood.foodObj);
 
@@ -136,6 +155,8 @@ var nutritionApp = new Vue({
                 servingSize: '',
                 foodObj: {},
             };
+
+            this.userErrorMsg = '';
         },
         fetchFoodData: function(fetch) {
             // retrieves the search results for the user
