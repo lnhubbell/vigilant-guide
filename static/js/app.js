@@ -11,9 +11,21 @@ Vue.filter('round', function(value, decimals) {
     return value;
 });
 
+// ROUTING:
+// const NotFound = { template: '<p>Page not found</p>' };
+// const Home = { template: index.html };
+// const About = { template: 'about.html' };
+// const routes = {
+//   '/': Home,
+//   '/about': About
+// };
+
+
+
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
+        currentRoute: window.location.pathname,
         // search results
         foods: [],
         // foods selected by user and added to the log
@@ -297,6 +309,12 @@ var nutritionApp = new Vue({
         },
 
     },
+    // computed: {
+    //     ViewComponent () {
+    //         return routes[this.currentRoute] || NotFound;
+    //     }
+    // },
+    // render (h) { return h(this.ViewComponent) }
 });
 
 
