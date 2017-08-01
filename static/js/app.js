@@ -199,9 +199,9 @@ var nutritionApp = new Vue({
         selectFood: function(item) {
             this.newFood = {
                 name: '',
-                meal: '',
+                meal: 'lunch',
                 servingType: '',
-                servingSize: '',
+                servingSize: 1,
                 foodObj: {},
             };
 
@@ -216,6 +216,8 @@ var nutritionApp = new Vue({
                 for (var j=0; j<nutrients[j].measures.length; j++) {
                     this.servingTypes.push(nutrients[j].measures[j].label)
                 }
+                this.newFood.servingType = this.servingTypes[0];
+                console.log('servingTypes: ', this.servingTypes);
 
                 console.log('processed item: ', item);
 
