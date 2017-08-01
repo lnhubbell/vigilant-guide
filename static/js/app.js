@@ -1,13 +1,20 @@
-// import Vue from 'vue';
-// import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 
-const NotFound = { template: '<p>Page not found</p>' }
-const Home = { template: '<p>home template string</p>' }
-const About = { template: 'about.html' }
-const routes = {
-    '/': Home,
-    '/about': About
-};
+// We create the router instance here.
+// const router = new VueRouter({
+//   routes: ourRoutes
+// });
+
+
+
+
+Vue.component('homepage', {
+
+    template: '<p>This is my component</p>',
+
+});
+
+
 
 Vue.filter('round', function(value, decimals) {
     if(!value) {
@@ -23,10 +30,13 @@ Vue.filter('round', function(value, decimals) {
 });
 
 var nutritionApp = new Vue({
+    // router: router,
     el: '#nutritionApp',
     data: {
-        currentRoute: window.location.pathname,
-        title: 'laurastitle',
+        // template: '<div><test></test></div>',
+        // components: [test],
+        // currentRoute: window.location.pathname,
+        // title: 'laurastitle',
         // search results
         foods: [],
         // foods selected by user and added to the log
@@ -307,15 +317,21 @@ var nutritionApp = new Vue({
         },
 
     },
-    computed: {
-        ViewComponent: function() {
-            console.log(this.currentRoute)
-            return routes[this.currentRoute] || NotFound;
-        }
-    },
-    render: function(h){ 
-        return h(this.ViewComponent) 
-    },
+    // computed: {
+    //     ViewComponent: function() {
+    //         console.log(this.currentRoute)
+    //         var template = routes[this.currentRoute] || NotFound;
+    //         template.data = function(){
+    //             return {
+    //                 title: 'here is a title'
+    //             }; 
+    //         };
+    //         return template;
+    //     }
+    // },
+    // router:router,
+    // render: h => h(nutritionApp),
+// }).$mount('#nutritionApp');
 });
 
 
