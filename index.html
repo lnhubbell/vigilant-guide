@@ -75,7 +75,7 @@
 
 		<!-- User specifics -->
 		<div class="mdl-cell mdl-cell--8-col mdl-grid appForm">
-			<div class="mdl-cell mdl-cell--12-col searchBox-titlemd">Food Details</div>
+			<div class="mdl-cell mdl-cell--12-col searchBox-titlemd">Food Details: {{newFood.name}}</div>
 			<div class="mdl-cell mdl-cell--4-col mdl-grid">
 				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Meal:</div>
 				<select class="mdl-cell mdl-cell--8-col appForm-fields"
@@ -125,12 +125,13 @@
 		<!-- I hate tables Nathan!!!! -->
 		<table class="mdl-cell mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 		  <thead>
-		    <tr>
+		    <tr class="food-header">
 		      <th class="mdl-data-table__cell--non-numeric"><div><span>Selected Food</span></div></th>
 		      <th class="mdl-data-table__cell"><div><span>Serving Size</span></div></th>
 		      <template v-for="nutrient in nutrients">
 		      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
 		      </template>
+		      <th></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -147,12 +148,13 @@
 		      	<td><button v-on:click="unselectFood(food)">Remove</button></td>
 		    </tr>
 
-			<tr>
+			<tr class="daily-total">
 		        <td class="mdl-data-table__cell--non-numeric">Daily Total:</td>
 		        <td></td>
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.total | round}}</td>
 		        </template>
+		        <td></td>
 	        </tr>
 
 	        <tr>
@@ -161,6 +163,7 @@
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.minimum | round}}</td>
 		        </template>
+		        <td></td>
 	        </tr>
 
 	        <tr>
@@ -169,6 +172,7 @@
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.minimum - nutrient.total | round}}</td>
 		        </template>
+		        <td></td>
 	        </tr>
 
 		  </tbody>

@@ -225,7 +225,7 @@ var nutritionApp = new Vue({
                 this.newFood.foodObj = item;
                 // clear the search results
                 this.foods = [];
-                newfoodinput = '';
+                this.newfoodinput = '';
 
             }, response => {
             });
