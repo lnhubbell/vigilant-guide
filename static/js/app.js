@@ -1,13 +1,3 @@
-// import Vue from 'vue';
-// import VueRouter from 'vue-router';
-
-const NotFound = { template: '<p>Page not found</p>' }
-const Home = { template: '<p>home template string</p>' }
-const About = { template: 'about.html' }
-const routes = {
-    '/': Home,
-    '/about': About
-};
 
 Vue.filter('round', function(value, decimals) {
     if(!value) {
@@ -25,8 +15,6 @@ Vue.filter('round', function(value, decimals) {
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
-        currentRoute: window.location.pathname,
-        title: 'laurastitle',
         // search results
         foods: [],
         // foods selected by user and added to the log
