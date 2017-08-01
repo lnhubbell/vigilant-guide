@@ -166,7 +166,7 @@ var nutritionApp = new Vue({
                 if (food == this.selected_foods[i]) {
                     this.selected_foods.splice(i,1);
                     this.totalNutrients();
-                    break
+                    break;
                 };
             };
 
@@ -309,15 +309,6 @@ var nutritionApp = new Vue({
 
         },
 
-    },
-    computed: {
-        ViewComponent: function() {
-            console.log(this.currentRoute)
-            return routes[this.currentRoute] || NotFound;
-        }
-    },
-    render: function(h){ 
-        return h(this.ViewComponent) 
     },
 });
 
