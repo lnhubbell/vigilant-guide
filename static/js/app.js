@@ -1,3 +1,4 @@
+
 Vue.filter('round', function(value, decimals) {
     if(!value) {
         value = 0;
@@ -11,21 +12,9 @@ Vue.filter('round', function(value, decimals) {
     return value;
 });
 
-// ROUTING:
-// const NotFound = { template: '<p>Page not found</p>' };
-// const Home = { template: index.html };
-// const About = { template: 'about.html' };
-// const routes = {
-//   '/': Home,
-//   '/about': About
-// };
-
-
-
 var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
-        currentRoute: window.location.pathname,
         // search results
         foods: [],
         // foods selected by user and added to the log
@@ -111,9 +100,6 @@ var nutritionApp = new Vue({
                 food_map: ["01128", "15200"],
                 name: "Vitamin D (IU)"
             }
-
-
-
         ],
         low_nutrients: [],
         recommended_foods: [],
@@ -326,12 +312,15 @@ var nutritionApp = new Vue({
         },
 
     },
-    // computed: {
-    //     ViewComponent () {
-    //         return routes[this.currentRoute] || NotFound;
-    //     }
-    // },
-    // render (h) { return h(this.ViewComponent) }
+    computed: {
+        ViewComponent: function() {
+            console.log(this.currentRoute)
+            return routes[this.currentRoute] || NotFound;
+        }
+    },
+    render: function(h){ 
+        return h(this.ViewComponent) 
+    },
 });
 
 
