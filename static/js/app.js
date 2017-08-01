@@ -1,18 +1,30 @@
-Vue.use(VueRouter);
+
+
+import Vue from 'vue';
+import Homepage from './home.vue';
+
+new Vue({
+  el: '#nutritionApp',
+  render: h => h(Homepage)
+});
+
+// Vue.use(VueRouter);
 
 // We create the router instance here.
 // const router = new VueRouter({
 //   routes: ourRoutes
 // });
 
+// Vue.component('homepage', {
 
+//     // template: ,
 
+// });
+// Vue.component('aboutpage', {
 
-Vue.component('homepage', {
+//     // template: ,
 
-    template: '<p>This is my component</p>',
-
-});
+// });
 
 
 
@@ -34,8 +46,8 @@ var nutritionApp = new Vue({
     el: '#nutritionApp',
     data: {
         // template: '<div><test></test></div>',
-        // components: [test],
-        // currentRoute: window.location.pathname,
+        components: [homepage, aboutpage],
+        currentRoute: window.location.pathname,
         // title: 'laurastitle',
         // search results
         foods: [],

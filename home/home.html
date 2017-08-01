@@ -1,0 +1,144 @@
+<div id="home-template">
+<!-- SEARCH AREA (1st fold) -->
+	<div class="mdl-cell mdl-cell--12-col mdl-grid">
+		<!-- searchBox -->
+		<div class="mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid searchBox">
+			<div class="mdl-cell mdl-cell--12-col">
+				<div class="searchBox-titlemd">What are we having?</div>
+				<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(newfoodinput)">
+					<input class="mdl-cell mdl-cell--8-col"
+					v-model="newfoodinput" placeholder=" Add Food">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+					type="submit">
+		  			<i class="material-icons">search</i>
+					</button>
+				</form>
+			</div>
+			<div class="mdl-cell mdl-cell--12-col" v-for="food in foods">
+				<span class="searchBox-results" v-on:click="selectFood(food)">{{food.name}}</span>
+			</div>
+		</div>
+
+		<!-- User specifics -->
+		<div class="mdl-cell mdl-cell--8-col mdl-grid appForm">
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Meal:</div>
+				<select class="mdl-cell mdl-cell--8-col appForm-fields"
+				v-model="newFood.meal">
+				  <option disabled value=""></option>
+				  <option v-for="meal in meals">{{meal}}</option>
+				</select>
+			</div>
+
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Portion:</div>
+				<select class="mdl-cell mdl-cell--8-col appForm-fields"
+				v-model="newFood.servingType">
+				  <option disabled value=""></option>
+				  <option v-for="type in servingTypes">{{type}}</option>
+				</select>
+			</div>
+
+			<div class="mdl-cell mdl-cell--4-col mdl-grid">
+				<div class="mdl-cell mdl-cell--4-col appForm-titlesm">Amount:</div>
+				<form class="mdl-cell mdl-cell--8-col mdl-grid appForm-fields">
+					<input class="mdl-cell mdl-cell--12-col"
+					v-model="newFood.servingSize" type="number" step=".01"
+					placeholder="Enter Serving Amt">
+				</form>
+			</div>
+
+			<div class="mdl-cell mdl-cell--12-col mdl-grid">
+				<div class="mdl-cell mdl-cell--2-col"></div>
+				<div class="mdl-cell mdl-cell--8-col userErrorMsg"
+				v-if="userErrorMsg">{{userErrorMsg}}</div>
+				<div class="mdl-cell mdl-cell--2-col"></div>
+			</div>
+			<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+			v-if="newFood" v-on:click="addNewFood()">
+	  			<i class="material-icons">add</i>
+			</button>
+		</div>
+
+	</div>
+
+
+	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
+
+	<div class="mdl-grid">
+		<!-- I hate tables Nathan!!!! -->
+		<table class="mdl-cell mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+		  <thead>
+		    <tr>
+		      <th class="mdl-data-table__cell--non-numeric"><div><span>Selected Food</span></div></th>
+		      <template v-for="nutrient in nutrients">
+		      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
+		      </template>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr v-for="food in selected_foods">
+		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
+		      <template v-for="nutrient in nutrients">
+		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+		      </template>
+		    </tr>
+
+			<tr>
+		        <td class="mdl-data-table__cell--non-numeric">Daily Total:</td>
+	            <template v-for="nutrient in nutrients">
+		            <td>{{nutrient.total | round}}</td>
+		        </template>
+	        </tr>
+
+	        <tr>
+		        <td class="mdl-data-table__cell--non-numeric">Daily Minimum:</td>
+	            <template v-for="nutrient in nutrients">
+		            <td>{{nutrient.minimum | round}}</td>
+		        </template>
+	        </tr>
+
+	        <tr>
+		        <td class="mdl-data-table__cell--non-numeric">You Need:</td>
+	            <template v-for="nutrient in nutrients">
+		            <td>{{nutrient.minimum - nutrient.total | round}}</td>
+		        </template>
+	        </tr>
+
+		  </tbody>
+		</table>
+	</div>
+
+	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
+
+	<div class="mdl-grid">
+		<!-- <div class="mdl-layout-spacer"></div> -->
+		<div class="mdl-cell">
+		 <button v-on:click="getRecommendations()">Get Recommendations</button>
+		</div>
+		<!-- <div class="mdl-layout-spacer"></div> -->
+	</div>
+
+	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
+
+	<div class="mdl-grid">
+		<table class="mdl-cell mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+		  <thead>
+		    <tr>
+		      <th class="mdl-data-table__cell--non-numeric"><div><span>Recommended Food</span></div></th>
+		      <template v-for="nutrient in nutrients">
+		      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
+		      </template>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr v-for="food in recommended_foods">
+		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
+		      <template v-for="nutrient in nutrients">
+		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+		      </template>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
