@@ -111,6 +111,7 @@
 				v-if="userErrorMsg">{{userErrorMsg}}</div>
 				<div class="mdl-cell mdl-cell--2-col"></div>
 			</div>
+			<div class="mdl-cell mdl-cell--11-col"></div>
 			<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
 			v-if="newFood" v-on:click="addNewFood()">
 	  			<i class="material-icons">add</i>
@@ -128,6 +129,7 @@
 		  <thead>
 		    <tr>
 		      <th class="mdl-data-table__cell--non-numeric"><div><span>Selected Food</span></div></th>
+		      <th class="mdl-data-table__cell"><div><span>Serving Size</span></div></th>
 		      <template v-for="nutrient in nutrients">
 		      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
 		      </template>
@@ -136,13 +138,20 @@
 		  <tbody>
 		    <tr v-for="food in selected_foods">
 		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
+		      <td class="mdl-data-table__cell">{{food.servingSize}}</td>
 		      <template v-for="nutrient in nutrients">
-		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+		      	<td v-bind:class="{
+		      		low: ((food.nutrients[nutrient.id].value * 8)/food.servingSize) > nutrient.minimum,
+		      		medium: ((food.nutrients[nutrient.id].value * 6)/food.servingSize) > nutrient.minimum,
+		      		high: ((food.nutrients[nutrient.id].value * 4)/food.servingSize) > nutrient.minimum
+		      		}">{{food.nutrients[nutrient.id].value | round}}</td>
 		      </template>
+		      	<td><button v-on:click="unselectFood(food)">Remove</button></td>
 		    </tr>
 
 			<tr>
 		        <td class="mdl-data-table__cell--non-numeric">Daily Total:</td>
+		        <td></td>
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.total | round}}</td>
 		        </template>
@@ -150,6 +159,7 @@
 
 	        <tr>
 		        <td class="mdl-data-table__cell--non-numeric">Daily Minimum:</td>
+		        <td></td>
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.minimum | round}}</td>
 		        </template>
@@ -157,6 +167,7 @@
 
 	        <tr>
 		        <td class="mdl-data-table__cell--non-numeric">You Need:</td>
+		        <td></td>
 	            <template v-for="nutrient in nutrients">
 		            <td>{{nutrient.minimum - nutrient.total | round}}</td>
 		        </template>
@@ -192,7 +203,11 @@
 		    <tr v-for="food in recommended_foods">
 		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
 		      <template v-for="nutrient in nutrients">
-		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+		      	<td v-bind:class="{
+		      		low: ((food.nutrients[nutrient.id].value * 8)) > nutrient.minimum,
+		      		medium: ((food.nutrients[nutrient.id].value * 6)) > nutrient.minimum,
+		      		high: ((food.nutrients[nutrient.id].value * 4)) > nutrient.minimum
+		      		}">{{food.nutrients[nutrient.id].value | round}}</td>
 		      </template>
 		    </tr>
 		  </tbody>

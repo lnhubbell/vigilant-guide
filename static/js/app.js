@@ -122,7 +122,7 @@ var nutritionApp = new Vue({
             // TODO [lji] Do we need this? We could also only make the add button available once all options are selected
             // if (!this.newFood) {
             //     this.userErrorMsg = '';
-            //     return;                
+            //     return;
             // }
             if (!this.newFood.meal) {
                 this.userErrorMsg = 'Please select a meal for this food.';
@@ -140,7 +140,12 @@ var nutritionApp = new Vue({
             // calculate the nutrients based on the total servings
             this.tallyNutrientsForSelection(this.newFood.foodObj);
 
+
+            // weird hack
+            this.newFood.foodObj.servingSize = this.newFood.servingSize;
+
             this.selected_foods.push(this.newFood.foodObj);
+
 
             // TODO [lji] Add error handling / required inputs
 
@@ -155,6 +160,16 @@ var nutritionApp = new Vue({
             };
 
             this.userErrorMsg = '';
+        },
+        unselectFood: function(food) {
+            for (var i = this.selected_foods.length - 1; i >= 0; i--) {
+                if (food == this.selected_foods[i]) {
+                    this.selected_foods.splice(i,1);
+                    this.totalNutrients();
+                    break
+                };
+            };
+
         },
         fetchFoodData: function(fetch) {
             // retrieves the search results for the user
