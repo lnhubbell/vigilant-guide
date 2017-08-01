@@ -202,7 +202,11 @@
 		    <tr v-for="food in recommended_foods">
 		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
 		      <template v-for="nutrient in nutrients">
-		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
+		      	<td v-bind:class="{
+		      		low: ((food.nutrients[nutrient.id].value * 8)) > nutrient.minimum,
+		      		medium: ((food.nutrients[nutrient.id].value * 6)) > nutrient.minimum,
+		      		high: ((food.nutrients[nutrient.id].value * 4)) > nutrient.minimum
+		      		}">{{food.nutrients[nutrient.id].value | round}}</td>
 		      </template>
 		    </tr>
 		  </tbody>
