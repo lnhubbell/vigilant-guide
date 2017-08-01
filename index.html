@@ -139,6 +139,7 @@
 		      <template v-for="nutrient in nutrients">
 		      	<td>{{food.nutrients[nutrient.id].value | round}}</td>
 		      </template>
+		      	<td><button v-on:click="unselectFood(food)">Remove</button></td>
 		    </tr>
 
 			<tr>
