@@ -3,7 +3,7 @@ $font-large: 24px;
 $font-med: 18px;
 $font-small: 12px;
 
-// Colors: 
+// Colors:
 $primary: #283593;
 $primary-light: #5f5fc4;
 $primary-dark: #001064;
@@ -28,6 +28,22 @@ input::-webkit-inner-spin-button {
 	&-link {
 		color: $white;
 	}
+}
+
+
+.low {
+	color: #76d275;
+	font-size: 110%;
+}
+
+.medium {
+	color: #43a047;
+	font-size: 130%;
+}
+
+.high {
+	color: #00701a;
+	font-size: 150%;
 }
 
 .searchBox {

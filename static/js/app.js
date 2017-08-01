@@ -154,7 +154,12 @@ var nutritionApp = new Vue({
             // calculate the nutrients based on the total servings
             this.tallyNutrientsForSelection(this.newFood.foodObj);
 
+
+            // weird hack
+            this.newFood.foodObj.servingSize = this.newFood.servingSize;
+
             this.selected_foods.push(this.newFood.foodObj);
+
 
             // TODO [lji] Add error handling / required inputs
 
