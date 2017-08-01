@@ -1,26 +1,100 @@
-// // Fonts:
+// Fonts:
 $font-large: 24px;
 $font-med: 18px;
+$font-small: 12px;
 
+// Colors: 
+$primary: #283593;
+$primary-light: #5f5fc4;
+$primary-dark: #001064;
+$white: #ffffff;
+$gray: #e1e2e1;
 
+body {
+	background-color: $gray;
+}
 
-.column {
-	// padding: 4px;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 
-	&-contents {
-		padding: 4px 0 4px 16px;
+.navbar {
+	// TODO [lji] instead of overrides, we should make our own navbar classes
+	background-color: $primary-dark !important;
+
+	&-link {
+		color: $white;
 	}
+}
 
-	&-titlelg {
-		font-size: $font-large;
+.searchBox {
+	background-color: $primary-light;
+	padding: 12px;
+
+	&-titlemd {
+		color: $white;
+		font-size: $font-med;
 		font-weight: bold;
 		text-transform: capitalize;
 	}
+
+	&-results {
+		//
+	}
+	&-results:hover {
+		color: $white;
+		cursor: pointer;
+	}
+}
+
+.appForm {
+	display: flex;
+	// align-items: center;
+	background-color: $primary-light;
+	padding: 12px;
+
+	&-fields {
+		align-self: center;
+	}
+
+	&-titlesm {
+		align-self: center;
+		color: $white;
+		font-size: $font-small;
+		font-weight: bold;
+	}
+
+}
+
+.displayTable {
+	background-color: $white;
+	padding: 12px;
+
+	&-data {
+		color: $primary-light;
+		font-size: $font-small;
+	}
+
 	&-titlemd {
+		color: $primary-light;
 		font-size: $font-med;
-		padding: 8px;
+		font-weight: bold;
 		text-transform: capitalize;
 	}
+}
+
+.pageBreak {
+	border-bottom: 1px solid $primary-light;
+	margin: 36px;
+}
+
+.userErrorMsg {
+	color: red;
+	font-size: $font-med;
+	text-align: center;
 }
 
 th.rotate {

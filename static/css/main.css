@@ -1,12 +1,72 @@
-.column-contents {
-  padding: 4px 0 4px 16px; }
+body {
+  background-color: #e1e2e1; }
 
-.column-titlelg {
-  font-size: 24px;
-  font-weight: bold;
-  text-transform: capitalize; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */ }
 
-.column-titlemd {
+.navbar {
+  background-color: #001064 !important; }
+  .navbar-link {
+    color: #ffffff; }
+
+.searchBox {
+  background-color: #5f5fc4;
+  padding: 12px; }
+  .searchBox-titlemd {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize; }
+  .searchBox-results:hover {
+    color: #ffffff;
+    cursor: pointer; }
+
+.appForm {
+  display: flex;
+  background-color: #5f5fc4;
+  padding: 12px; }
+  .appForm-fields {
+    align-self: center; }
+  .appForm-titlesm {
+    align-self: center;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold; }
+
+.displayTable {
+  background-color: #ffffff;
+  padding: 12px; }
+  .displayTable-data {
+    color: #5f5fc4;
+    font-size: 12px; }
+  .displayTable-titlemd {
+    color: #5f5fc4;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: capitalize; }
+
+.pageBreak {
+  border-bottom: 1px solid #5f5fc4;
+  margin: 36px; }
+
+.userErrorMsg {
+  color: red;
   font-size: 18px;
-  padding: 8px;
-  text-transform: capitalize; }
+  text-align: center; }
+
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap; }
+
+th.rotate > div {
+  transform: translate(20px, 1px) rotate(315deg);
+  width: 30px; }
+
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0px; }
