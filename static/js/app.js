@@ -1,3 +1,7 @@
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+
+Vue.use(VueResource);
 
 Vue.filter('round', function(value, decimals) {
     if(!value) {
@@ -173,6 +177,7 @@ var nutritionApp = new Vue({
         },
         fetchFoodData: function(fetch) {
             // retrieves the search results for the user
+            console.log('This: ', this);
             this.$http.get('http://127.0.0.1:3000/search?search_term=' + fetch).then(response => {
                 nutritionApp.foods = response.body.list.item;
             }, response => {
