@@ -182,38 +182,25 @@
 	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
 
 	<div class="mdl-grid">
-		<!-- <div class="mdl-layout-spacer"></div> -->
-		<div class="mdl-cell">
-		 <button v-on:click="getRecommendations()">Get Recommendations</button>
-		</div>
-		<!-- <div class="mdl-layout-spacer"></div> -->
-	</div>
 
-	<div class="mdl-cell mdl-cell--12-col pageBreak"></div>
-
-	<div class="mdl-grid">
-		<table class="mdl-cell mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-		  <thead>
-		    <tr>
-		      <th class="mdl-data-table__cell--non-numeric"><div><span>Recommended Food</span></div></th>
-		      <template v-for="nutrient in nutrients">
-		      	<th class="rotate"><div><span>{{nutrient.name}}</span></div></th>
-		      </template>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr v-for="food in recommended_foods">
-		      <td class="mdl-data-table__cell--non-numeric">{{food.name}}</td>
-		      <template v-for="nutrient in nutrients">
-		      	<td v-bind:class="{
-		      		low: ((food.nutrients[nutrient.id].value * 8)) > nutrient.minimum,
-		      		medium: ((food.nutrients[nutrient.id].value * 6)) > nutrient.minimum,
-		      		high: ((food.nutrients[nutrient.id].value * 4)) > nutrient.minimum
-		      		}">{{food.nutrients[nutrient.id].value | round}}</td>
-		      </template>
-		    </tr>
-		  </tbody>
-		</table>
+		<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp" 
+		v-for="(nutrient, idx) in low_nutrients">
+		  <div class="mdl-card__title">
+		    <h2 class="mdl-card__title-text">{{nutrient.name}}</h2>
+		  </div>
+		  <div class="mdl-card__supporting-text">
+		    <div>Recommended Foods:</div>
+		  </div>
+		  <div class="mdl-card__supporting-text">
+		    <div v-for="(rec,idx) in recommended_foods[nutrient.id]">{{rec.name}}</div>
+		  </div>
+		  <div class="mdl-card__actions">
+		    <button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+			v-if="newFood" v-on:click="addNewFood()">
+	  			<i class="material-icons">add</i>
+			</button>
+		  </div>
 	</div>
 
 </div>

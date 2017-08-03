@@ -102,7 +102,7 @@ var nutritionApp = new Vue({
             }
         ],
         low_nutrients: [],
-        recommended_foods: [],
+        recommended_foods: {},
         userErrorMsg: undefined,
     },
     methods: {
@@ -113,17 +113,14 @@ var nutritionApp = new Vue({
             return false
         },
         nutrientById: function(id) {
+            // console.log(id)
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
+                // console.log(this.nutrients[i].id)
                 if (this.nutrients[i].id == id) {return this.nutrients[i]};
             }
             return false
         },
         addNewFood: function() {
-            // TODO [lji] Do we need this? We could also only make the add button available once all options are selected
-            // if (!this.newFood) {
-            //     this.userErrorMsg = '';
-            //     return;
-            // }
             if (!this.newFood.meal) {
                 this.userErrorMsg = 'Please select a meal for this food.';
                 return;
@@ -140,14 +137,10 @@ var nutritionApp = new Vue({
             // calculate the nutrients based on the total servings
             this.tallyNutrientsForSelection(this.newFood.foodObj);
 
-
             // weird hack
             this.newFood.foodObj.servingSize = this.newFood.servingSize;
 
             this.selected_foods.push(this.newFood.foodObj);
-
-
-            // TODO [lji] Add error handling / required inputs
 
             this.totalNutrients();
 
@@ -167,9 +160,8 @@ var nutritionApp = new Vue({
                     this.selected_foods.splice(i,1);
                     this.totalNutrients();
                     break;
-                };
-            };
-
+                }
+            }
         },
         fetchFoodData: function(fetch) {
             // retrieves the search results for the user
@@ -229,9 +221,7 @@ var nutritionApp = new Vue({
 
             }, response => {
             });
-
         },
-
         processFood: function(item) {
             this.$http.get('http://127.0.0.1:3000/item?ndbno=' + item.ndbno).then(response => {
 
@@ -267,50 +257,40 @@ var nutritionApp = new Vue({
             }
         },
         lowNutrients: function() {
-            this.low_nutrients = [];
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
                 var nid = this.nutrients[i].id;
                 if ((this.nutrients[i].minimum - this.nutrients[i].total) > 0) {
-                    this.low_nutrients.push(nid);
-                };
+                    // this.low_nutrients[nid] = this.nutrients[i];
+                    this.low_nutrients.push(this.nutrients[i])
+                }
             }
-
         },
         getRecommendations: function() {
-            console.log('getting recommended_foods');
+            // produces an object of nutrients the user is under the minimum on
             this.lowNutrients();
-            console.log('low_nutrients: ', this.low_nutrients);
-            for (var i = this.low_nutrients.length - 1; i >= 0; i--) {
+            this.recommendFood();
+        },
+        getItem: function(ndbno,i,nid) {
+            this.$http.get('http://127.0.0.1:3000/item?ndbno=' + ndbno).then(function(response) {
+                    var someData = response.body;
+                    var nutrients = someData.report.food.nutrients;
+                    var item = someData.report.food;
 
-                var foods = this.nutrientById(this.low_nutrients[i]).food_map;
+                    item = this.addNutrientsToItem(item, nutrients);
+                    this.$set(this.recommended_foods[nid],ndbno,item)
+            });
+        },
+        recommendFood: function() {
+            // this.recommended_foods = {};
+            for (var i=0; i<this.low_nutrients.length; i++) {
+                this.$set(this.recommended_foods,[this.low_nutrients[i].id],{})
 
-                console.log('foods', foods);
-                for (var f = foods.length - 1; f >= 0; f--) {
-                    var food = foods[f];
-                    this.recommendFood(food);
+                for (var k=0; k<this.low_nutrients[i].food_map.length; k++) {
+                    var ndbno = this.low_nutrients[i].food_map[k];
+                    this.getItem(ndbno,i,this.low_nutrients[i].id);
                 }
-                console.log('length: ', this.low_nutrients.length );
             }
         },
-        recommendFood: function(ndbno) {
-
-            this.$http.get('http://127.0.0.1:3000/item?ndbno=' + ndbno).then(response => {
-                var someData = response.body;
-                console.log('recommended food: ', someData);
-                var nutrients = someData.report.food.nutrients;
-                var item = someData.report.food;
-
-                item = this.addNutrientsToItem(item, nutrients);
-
-                console.log('processed item: ', item);
-
-                this.recommended_foods.push(item);
-
-            }, response => {
-            });
-
-        },
-
     },
 });
 
