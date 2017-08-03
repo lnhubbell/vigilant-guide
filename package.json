@@ -16,7 +16,8 @@
   "scripts": {
     "start": "node index.js",
     "predeploy": "echo im about to deploy",
-    "postdeploy": "echo ive deployed"
+    "postdeploy": "echo ive deployed",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "babel-preset-stage-0": "*",
     "babel-preset-stage-2": "*",
     "babel-runtime": "^6.25.0",
+    "cross-env": "^5.0.2",
     "css-loader": "^0.28.4",
     "node-sass": "*",
     "sass-loader": "*",
@@ -55,7 +57,8 @@
     "vue-loader": "*",
     "vue-style-loader": "*",
     "vue-template-compiler": "^2.4.2",
-    "webpack": "*"
+    "webpack": "*",
+    "webpack-dev-server": "^1.14.1"
   },
   "preferGlobal": true,
   "private": true,
