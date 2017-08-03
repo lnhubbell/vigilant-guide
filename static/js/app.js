@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import VModal from 'vue-js-modal'
 
+Vue.use(VModal)
 Vue.use(VueResource);
 
 Vue.filter('round', function(value, decimals) {
@@ -110,6 +112,13 @@ var nutritionApp = new Vue({
         userErrorMsg: undefined,
     },
     methods: {
+        openModal: function() {
+            console.log('opening...');
+            this.$modal.show('hello-world');
+        },
+        closeModal: function() {
+            this.$modal.hide('hello-world');
+        },
         nutrientsHaveId: function(id) {
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
                 if (this.nutrients[i].id == id) {return true};
@@ -164,6 +173,7 @@ var nutritionApp = new Vue({
             };
 
             this.userErrorMsg = '';
+            this.closeModal();
         },
         unselectFood: function(food) {
             for (var i = this.selected_foods.length - 1; i >= 0; i--) {
@@ -231,6 +241,8 @@ var nutritionApp = new Vue({
                 // clear the search results
                 this.foods = [];
                 this.newfoodinput = '';
+                console.log('call func');
+                this.openModal();
 
             }, response => {
             });
