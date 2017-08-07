@@ -109,6 +109,7 @@ var nutritionApp = new Vue({
         ],
         low_nutrients: [],
         recommended_foods: {},
+        showRecommendations: false,
         userErrorMsg: undefined,
     },
     methods: {
@@ -255,8 +256,12 @@ var nutritionApp = new Vue({
         },
         tallyNutrientsForSelection: function(food) {
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
-                food.nutrients[this.nutrients[i].id].value *=
-                    this.newFood.servingSize;
+                if (food.nutrients[this.nutrients[i].id]===0) {
+                    console.warn('fixme: tallyNutrientsForSelection ',food.nutrients)
+                } else {
+                    food.nutrients[this.nutrients[i].id].value *=
+                        this.newFood.servingSize;
+                }
             }
             console.log(this.newFood)
         },
@@ -309,6 +314,16 @@ var nutritionApp = new Vue({
             }
         },
     },
+    watch: {
+        selected_foods: function() {
+            // console.log('selected foods',this.selected_foods.length)
+            if (this.selected_foods.length >= 1) {
+                this.recommendFood();
+                this.showRecommendations = true;
+                console.log(this.showRecommendations)
+            }
+        }
+    }
 });
 
 

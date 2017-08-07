@@ -58,7 +58,7 @@
     "vue-loader": "*",
     "vue-style-loader": "*",
     "vue-template-compiler": "^2.4.2",
-    "webpack": "*",
+    "webpack": "^3.4.1",
     "webpack-dev-server": "^1.14.1"
   },
   "preferGlobal": true,
