@@ -114,7 +114,7 @@ var nutritionApp = new Vue({
     },
     methods: {
         openModal: function() {
-            console.log('opening...');
+            // console.log('opening...');
             this.$modal.show('hello-world');
         },
         closeModal: function() {
@@ -180,7 +180,6 @@ var nutritionApp = new Vue({
         },
         fetchFoodData: function(fetch) {
             // retrieves the search results for the user
-            console.log('This: ', this);
             this.$http.get('http://127.0.0.1:3000/search?search_term=' + fetch).then(response => {
                 nutritionApp.foods = response.body.list.item;
             }, response => {
@@ -225,16 +224,16 @@ var nutritionApp = new Vue({
                     this.servingTypes.push(nutrients[j].measures[j].label)
                 }
                 this.newFood.servingType = this.servingTypes[0];
-                console.log('servingTypes: ', this.servingTypes);
+                // console.log('servingTypes: ', this.servingTypes);
 
-                console.log('processed item: ', item);
+                // console.log('processed item: ', item);
 
                 this.newFood.name = item.name;
                 this.newFood.foodObj = item;
                 // clear the search results
                 this.foods = [];
                 this.newfoodinput = '';
-                console.log('call func');
+                // console.log('call func');
                 this.openModal();
 
             }, response => {
@@ -248,7 +247,7 @@ var nutritionApp = new Vue({
 
                 item = this.addNutrientsToItem(item, nutrients);
 
-                console.log('processed item: ', item);
+                // console.log('processed item: ', item);
                 return item
 
             }, response => {
@@ -263,7 +262,7 @@ var nutritionApp = new Vue({
                         this.newFood.servingSize;
                 }
             }
-            console.log(this.newFood)
+            // console.log(this.newFood)
         },
         totalNutrients: function() {
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
@@ -286,6 +285,7 @@ var nutritionApp = new Vue({
                     this.low_nutrients.push(this.nutrients[i])
                 }
             }
+            // console.log('Low Nutrients: ',this.low_nutrients)
         },
         getRecommendations: function() {
             // produces an object of nutrients the user is under the minimum on
@@ -297,6 +297,9 @@ var nutritionApp = new Vue({
                     var someData = response.body;
                     var nutrients = someData.report.food.nutrients;
                     var item = someData.report.food;
+
+                    var result=item.name.match(/[^,]+,[^,]+/g);
+                    item.baseName = result[0];
 
                     item = this.addNutrientsToItem(item, nutrients);
                     this.$set(this.recommended_foods[nid],ndbno,item)
@@ -316,11 +319,10 @@ var nutritionApp = new Vue({
     },
     watch: {
         selected_foods: function() {
-            // console.log('selected foods',this.selected_foods.length)
-            if (this.selected_foods.length >= 1) {
+            if (this.selected_foods.length >= 0) {
+                this.getRecommendations();
                 this.recommendFood();
                 this.showRecommendations = true;
-                console.log(this.showRecommendations)
             }
         }
     }

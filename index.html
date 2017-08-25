@@ -195,13 +195,21 @@
 		    <div>Recommended Foods:</div>
 		  </div>
 		  <div class="mdl-card__supporting-text">
-		    <div v-for="(rec,idx) in recommended_foods[nutrient.id]">{{rec.name}}</div>
-		  </div>
-		  <div class="mdl-card__actions">
-		    <button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+		    <div v-for="(rec,idx) in recommended_foods[nutrient.id]">
+		    	<span>{{rec.baseName}}</span>
+<!-- 		    	<button class="mdl-cell mdl-cell--1-col mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
 			v-if="newFood" v-on:click="addNewFood()">
 	  			<i class="material-icons">add</i>
-			</button>
+			</button> -->
+				<form class="mdl-grid" v-on:submit.prevent="fetchFoodData(rec)">
+					<input class="mdl-cell mdl-cell--8-col"
+					v-model="newfoodinput" placeholder=" Add Food">
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-cell mdl-cell--2-col"
+					type="submit">
+		  			<i class="material-icons">add</i>
+					</button>
+				</form>			
+		    </div>
 		  </div>
 	</div>
 

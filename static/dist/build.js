@@ -10280,7 +10280,7 @@ var nutritionApp = new _vue2.default({
     },
     methods: {
         openModal: function openModal() {
-            console.log('opening...');
+            // console.log('opening...');
             this.$modal.show('hello-world');
         },
         closeModal: function closeModal() {
@@ -10395,16 +10395,16 @@ var nutritionApp = new _vue2.default({
                     _this.servingTypes.push(nutrients[j].measures[j].label);
                 }
                 _this.newFood.servingType = _this.servingTypes[0];
-                console.log('servingTypes: ', _this.servingTypes);
+                // console.log('servingTypes: ', this.servingTypes);
 
-                console.log('processed item: ', item);
+                // console.log('processed item: ', item);
 
                 _this.newFood.name = item.name;
                 _this.newFood.foodObj = item;
                 // clear the search results
                 _this.foods = [];
                 _this.newfoodinput = '';
-                console.log('call func');
+                // console.log('call func');
                 _this.openModal();
             }, function (response) {});
         },
@@ -10418,7 +10418,7 @@ var nutritionApp = new _vue2.default({
 
                 item = _this2.addNutrientsToItem(item, nutrients);
 
-                console.log('processed item: ', item);
+                // console.log('processed item: ', item);
                 return item;
             }, function (response) {});
         },
@@ -10430,7 +10430,7 @@ var nutritionApp = new _vue2.default({
                     food.nutrients[this.nutrients[i].id].value *= this.newFood.servingSize;
                 }
             }
-            console.log(this.newFood);
+            // console.log(this.newFood)
         },
         totalNutrients: function totalNutrients() {
             for (var i = this.nutrients.length - 1; i >= 0; i--) {
@@ -10453,6 +10453,7 @@ var nutritionApp = new _vue2.default({
                     this.low_nutrients.push(this.nutrients[i]);
                 }
             }
+            console.log('Low Nutrients: ', this.low_nutrients);
         },
         getRecommendations: function getRecommendations() {
             // produces an object of nutrients the user is under the minimum on
@@ -10464,6 +10465,24 @@ var nutritionApp = new _vue2.default({
                 var someData = response.body;
                 var nutrients = someData.report.food.nutrients;
                 var item = someData.report.food;
+
+                var result = item.name.match(/[^,]+,[^,]+/g);
+                item.baseName = result[0];
+
+                // console.log('result ',result[0])
+
+                // for (var i=0; i<2; i++) {
+                //     var result2 = item.name.match(/[^,]+,[^,]+/g);
+                //     console.log('result2 ',result2)
+                // }
+
+                // var name = item.name;
+                // var first = name.slice(0, name.indexOf(','));
+                // name.splice(0,2);
+                // console.log(name)
+                // var second = name.slice(name.indexOf(',')+2,);
+                // item.baseName = first + ', ' + second;
+                // console.log(item)
 
                 item = this.addNutrientsToItem(item, nutrients);
                 this.$set(this.recommended_foods[nid], ndbno, item);
@@ -10483,8 +10502,8 @@ var nutritionApp = new _vue2.default({
     },
     watch: {
         selected_foods: function selected_foods() {
-            console.log('selected foods', this.selected_foods.length);
-            if (this.selected_foods.length >= 1) {
+            if (this.selected_foods.length >= 0) {
+                this.getRecommendations();
                 this.recommendFood();
                 this.showRecommendations = true;
             }
